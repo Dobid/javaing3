@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 23 mai 2019 à 12:37
+-- Généré le :  jeu. 23 mai 2019 à 15:46
 -- Version du serveur :  5.7.24
 -- Version de PHP :  7.2.14
 
@@ -70,7 +70,14 @@ CREATE TABLE IF NOT EXISTS `classe` (
   KEY `id_ecole` (`id_ecole`),
   KEY `id_niveau` (`id_niveau`),
   KEY `id_annee` (`id_annee`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `classe`
+--
+
+INSERT INTO `classe` (`id_classe`, `nom`, `id_ecole`, `id_niveau`, `id_annee`) VALUES
+(1, 'TD10', 1, 1, 2009);
 
 -- --------------------------------------------------------
 
@@ -113,7 +120,14 @@ CREATE TABLE IF NOT EXISTS `ecole` (
   `id_ecole` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_ecole`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `ecole`
+--
+
+INSERT INTO `ecole` (`id_ecole`, `nom`) VALUES
+(1, 'ECE Paris');
 
 -- --------------------------------------------------------
 
@@ -128,7 +142,18 @@ CREATE TABLE IF NOT EXISTS `eleve` (
   `prenom` varchar(255) NOT NULL,
   `age` int(11) NOT NULL,
   PRIMARY KEY (`id_eleve`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `eleve`
+--
+
+INSERT INTO `eleve` (`id_eleve`, `nom`, `prenom`, `age`) VALUES
+(1, 'test', 'projet', 3),
+(2, 'test', 'projet', 3),
+(3, 'test', 'pour', 3),
+(4, 'test', 'pour', 3),
+(5, 'test', 'pour', 67);
 
 -- --------------------------------------------------------
 
@@ -191,7 +216,15 @@ CREATE TABLE IF NOT EXISTS `niveau` (
   `id_niveau` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_niveau`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `niveau`
+--
+
+INSERT INTO `niveau` (`id_niveau`, `nom`) VALUES
+(1, 'CM2'),
+(2, 'CM2');
 
 -- --------------------------------------------------------
 
@@ -206,7 +239,14 @@ CREATE TABLE IF NOT EXISTS `professeur` (
   `prenom` varchar(255) NOT NULL,
   `age` int(11) NOT NULL,
   PRIMARY KEY (`id_professeur`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `professeur`
+--
+
+INSERT INTO `professeur` (`id_professeur`, `nom`, `prenom`, `age`) VALUES
+(1, 'PLOP', 'Jean', 56);
 
 -- --------------------------------------------------------
 
