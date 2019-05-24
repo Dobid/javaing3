@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package projet_ecole;
+import javax.jnlp.IntegrationService;
 import java.util.*;
 import java.sql.SQLException;
 import java.lang.*;
@@ -14,12 +15,15 @@ import java.lang.*;
  * @author sebas
  */
 public class Update {
-    
-    public void modifierEleve(Connexion bdd, ArrayList<String> valeurs)
+
+    public static void modifierEleve(Connexion bdd, ArrayList<String> valeurs)throws SQLException
     {
-        
+        int id = Integer.parseInt(valeurs.get(0), 10);
+        int age = Integer.parseInt(valeurs.get(3), 10);
+        bdd.executeUpdate("UPDATE eleve SET nom='"+valeurs.get(1)+"', prenom='"+valeurs.get(2)+"', age=" +age+" WHERE id_eleve="+id);
     }
-    public void modifier(Connexion bdd, String table, ArrayList <String> valeurs)
+
+    public void modifier(Connexion bdd, String table, ArrayList <String> valeurs)throws SQLException
     {
         if(table=="eleve")
             modifierEleve(bdd, valeurs);
@@ -56,8 +60,4 @@ public class Update {
          int age= Integer.parseInt(valeurs.get(3), 10);
          bdd.executeUpdate("UPDATE professeur SET nom='"+valeurs.get(1)+"', prenom='"+valeurs.get(2)+"', age=" +age+" WHERE id_professeur="+id);
     }
-     
-     
-    
-   
 }
