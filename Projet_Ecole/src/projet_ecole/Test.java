@@ -21,13 +21,14 @@ public class Test {
        // val.add("CM2");
        // val.add("pour");
        // val.add("67");
-       val.add("1");
-       val.add("PLOP");
-       val.add("Jean");
-       val.add("56");
+       val.add("2");
+       val.add("Essai");
+       val.add("Affichage");
+       val.add("22");
        
-        Update.modifierProf(base, val);
-        
+        Update.modifierEleve(base, val);
+        Reporting.consulterBulletin(base, 1);
+        Query.afficherTable(base, "eleve");
     }
     
 }
