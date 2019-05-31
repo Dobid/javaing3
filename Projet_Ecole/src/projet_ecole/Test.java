@@ -33,7 +33,13 @@ public class Test {
         val.add("TD10");
         val.add("2009");
 
-        Update.supEval(base, 8);
+        val2.add("Pinot");
+        val2.add("Jean");
+        val2.add("34");
+        val2.add("Mathematiques");
+        val2.add("TD10");
+        
+        Update.ajoutProf(base, val2);
     }
 
 }

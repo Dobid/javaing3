@@ -49,14 +49,22 @@ public class Update {
                 + "', '" + ecole + "', '" + niveau + "', '" + annee + "')");
     }
 
-    public static void ajoutProf(Connexion bdd, ArrayList<String> valeurs) throws SQLException {
+    public static void ajoutProf(Connexion bdd, ArrayList<String> valeurs) throws SQLException { //nom, prenom, age, discipline, classe
         int age = Integer.parseInt(valeurs.get(2), 10);
         bdd.executeUpdate("INSERT INTO professeur (nom, prenom, age)" + "VALUES ('" + valeurs.get(0) + "', '"
                 + valeurs.get(1) + "', '" + age + "')");
+        ArrayList<String> resultat=new ArrayList<String>();
+        resultat=bdd.remplirChampsRequete("SELECT id_discipline FROM discipline WHERE nom='"+valeurs.get(3)+"'");
+        int discipline=Integer.parseInt(resultat.get(0));
+        resultat=bdd.remplirChampsRequete("SELECT id_classe FROM classe WHERE nom='"+valeurs.get(4)+"'");
+        int classe=Integer.parseInt(resultat.get(0));
+        resultat=bdd.remplirChampsRequete("SELECT id_professeur FROM professeur WHERE nom='"+valeurs.get(0)+"'");
+        int prof=Integer.parseInt(resultat.get(0));
+        bdd.executeUpdate("INSERT INTO enseignement (id_classe, id_discipline, id_professeur)" +"VALUES ("+classe+", "+discipline+ ", "+prof+")");
     }
 
     public static void modifierProf(Connexion bdd, ArrayList<String> valeurs) throws SQLException // id, nom, prenom,
-                                                                                                  // age
+                                                                                                  // age, discipline, classe
     {
         int id = Integer.parseInt(valeurs.get(0), 10);
         int age = Integer.parseInt(valeurs.get(3), 10);
@@ -179,6 +187,11 @@ public class Update {
             nouv_moy=nouv_moy/resultat.size();
             bdd.executeUpdate("UPDATE bulletin SET moyenne="+nouv_moy+" WHERE id_bulletin="+bulletin);
         }
+    }
+    
+    public static void prof (Connexion bdd)
+    {
+        
     }
 
 }

@@ -13,3 +13,6 @@ Projet_Ecole/build/built-jar.properties
 *.xml
 *.xml
 *.class
+*.properties
+*.class
+*.class
