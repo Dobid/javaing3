@@ -22,12 +22,11 @@ public class Test {
        // val.add("pour");
        // val.add("67");
        val.add("1");
-       val.add("SAUTE");
-       val.add("Jean-Louis");
+       val.add("PLOP");
+       val.add("Jean");
        val.add("56");
        
-        Update.modifierEleve(base, val);
-        System.out.println("Opération sur la base de données réussie !");
+        Update.modifierProf(base, val);
         
     }
     
