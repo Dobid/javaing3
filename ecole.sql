@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 23 mai 2019 à 15:46
+-- Généré le :  ven. 31 mai 2019 à 13:30
 -- Version du serveur :  5.7.24
 -- Version de PHP :  7.2.14
 
@@ -47,11 +47,19 @@ CREATE TABLE IF NOT EXISTS `bulletin` (
   `id_bulletin` int(11) NOT NULL AUTO_INCREMENT,
   `id_trimestre` int(11) NOT NULL,
   `id_inscription` int(11) NOT NULL,
+  `moyenne` int(11) DEFAULT NULL,
   `appreciation` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_bulletin`),
   KEY `id_trimestre` (`id_trimestre`),
   KEY `id_inscription` (`id_inscription`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `bulletin`
+--
+
+INSERT INTO `bulletin` (`id_bulletin`, `id_trimestre`, `id_inscription`, `moyenne`, `appreciation`) VALUES
+(1, 1, 1, 10, 'Très bon élément');
 
 -- --------------------------------------------------------
 
@@ -94,7 +102,15 @@ CREATE TABLE IF NOT EXISTS `detailbulletin` (
   PRIMARY KEY (`id_detailbull`),
   KEY `id_bulletin` (`id_bulletin`),
   KEY `id_ens` (`id_ens`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `detailbulletin`
+--
+
+INSERT INTO `detailbulletin` (`id_detailbull`, `id_bulletin`, `id_ens`, `appreciation`) VALUES
+(1, 1, 1, 'Elément performant'),
+(2, 2, 2, 'Des lacunes');
 
 -- --------------------------------------------------------
 
@@ -149,8 +165,8 @@ CREATE TABLE IF NOT EXISTS `eleve` (
 --
 
 INSERT INTO `eleve` (`id_eleve`, `nom`, `prenom`, `age`) VALUES
-(1, 'test', 'projet', 3),
-(2, 'test', 'projet', 3),
+(1, 'Modification', 'Eleve', 22),
+(2, 'Essai', 'Affichage', 22),
 (3, 'test', 'pour', 3),
 (4, 'test', 'pour', 3),
 (5, 'test', 'pour', 67);
@@ -187,7 +203,15 @@ CREATE TABLE IF NOT EXISTS `evaluation` (
   `appreciation` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_eval`),
   KEY `id_detailbull` (`id_detailbull`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `evaluation`
+--
+
+INSERT INTO `evaluation` (`id_eval`, `id_detailbull`, `note`, `appreciation`) VALUES
+(8, 1, 16, 'Bien'),
+(16, 1, 4, 'De grosses lacunes');
 
 -- --------------------------------------------------------
 
@@ -203,7 +227,14 @@ CREATE TABLE IF NOT EXISTS `inscription` (
   PRIMARY KEY (`id_inscription`),
   KEY `id_classe` (`id_classe`),
   KEY `id_eleve` (`id_eleve`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `inscription`
+--
+
+INSERT INTO `inscription` (`id_inscription`, `id_classe`, `id_eleve`) VALUES
+(1, 1, 1);
 
 -- --------------------------------------------------------
 
