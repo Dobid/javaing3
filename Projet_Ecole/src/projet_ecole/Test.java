@@ -33,12 +33,7 @@ public class Test {
         val.add("TD10");
         val.add("2009");
 
-        Update.inscrireEleve(base, val);
-        val2.add("1");
-        val2.add("1");
-        val2.add("4");
-        val2.add("De grosses lacunes");
-        Update.ajouterEval(base, val2);
+        Update.supEval(base, 8);
     }
 
 }
