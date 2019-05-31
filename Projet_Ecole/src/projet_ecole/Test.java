@@ -22,7 +22,7 @@ public class Test {
        // val.add("pour");
        // val.add("67");
        val.add("1");
-       val.add("PLOP");
+       val.add("PLO");
        val.add("Jean");
        val.add("56");
        
