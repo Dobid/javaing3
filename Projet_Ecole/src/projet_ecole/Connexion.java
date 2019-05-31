@@ -155,7 +155,7 @@ public class Connexion {
         }
 
         // ajouter un "\n" Ã  la ligne des champs
-        champs = champs + "\n";
+       // champs = champs + "\n";
 
         // ajouter les champs de la ligne dans l'ArrayList
         liste.add(champs);
@@ -195,7 +195,7 @@ public class Connexion {
             }
 
             // ajouter un "\n" Ã  la ligne des champs
-           // champs = champs + "\n";
+         //   champs = champs + "\n";
 
             // ajouter les champs de la ligne dans l'ArrayList
             liste.add(champs);

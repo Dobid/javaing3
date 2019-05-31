@@ -64,9 +64,26 @@ public class Update {
          bdd.executeUpdate("UPDATE professeur SET nom='"+valeurs.get(1)+"', prenom='"+valeurs.get(2)+"', age=" +age+" WHERE id_professeur="+id);
     }
     
-    public static void ajouterEval(Connexion bdd, ArrayList<String> valeurs) throws SQLException //
+    public static void setMoyenne(Connexion bdd, int detail, int bulletin, int trimestre, int note) throws SQLException
+    {
+        ArrayList<String> resultat=bdd.remplirChampsRequete("SELECT COUNT(note) FROM evaluation WHERE id_detailbull="+detail);
+        int nbr_note=Integer.parseInt(resultat.get(0));
+        resultat=bdd.remplirChampsRequete("SELECT note FROM bulletin WHERE id_bulletin="+bulletin);
+        int moy=(Integer.parseInt(resultat.get(0))+note)/nbr_note;
+        bdd.executeUpdate("UPDATE bulletin SET note="+moy+" WHERE id_bulletin="+bulletin);
+    }
+    
+    public static void ajouterEval(Connexion bdd, ArrayList<String> valeurs) throws SQLException //id_eleve, trimestre, note, appréciation
     {
         
+        ArrayList<String> result=bdd.remplirChampsRequete("SELECT id_inscription FROM inscription WHERE id_eleve="+Integer.parseInt(valeurs.get(0)));
+        
+        result=bdd.remplirChampsRequete("SELECT id_bulletin FROM bulletin WHERE id_inscription="+Integer.parseInt(result.get(0))+" AND id_trimestre="+Integer.parseInt(valeurs.get(1)));
+        int bul=Integer.parseInt(result.get(0));
+        result=bdd.remplirChampsRequete("SELECT id_detailbull FROM detailbulletin WHERE id_bulletin="+Integer.parseInt(result.get(0)));
+        int detbul=Integer.parseInt(result.get(0));
+        bdd.executeUpdate("INSERT INTO evaluation (id_detailbull, note, appreciation)" + "VALUES ("+Integer.parseInt(result.get(0))+", "+Integer.parseInt(valeurs.get(2))+", '"+valeurs.get(3)+"')");
+        setMoyenne(bdd, detbul, bul, Integer.parseInt(valeurs.get(1)), Integer.parseInt(valeurs.get(2)));
     }
     
     
