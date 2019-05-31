@@ -38,6 +38,11 @@ public class Update {
         bdd.executeUpdate("INSERT INTO niveau (nom)" + "VALUES ('"+valeurs.get(0)+"')");
     }
     
+    public static void ajoutDiscipline(Connexion bdd, ArrayList<String> valeurs) throws SQLException
+    {
+        bdd.executeUpdate("INSERT INTO discipline(nom)"+ "VALUES ('"+valeurs.get(0)+"')");
+    }
+    
     public static void ajoutClasse(Connexion bdd, ArrayList<String> valeurs) throws SQLException
     {
         int ecole=Integer.parseInt(valeurs.get(1), 10);
@@ -58,6 +63,12 @@ public class Update {
          int age= Integer.parseInt(valeurs.get(3), 10);
          bdd.executeUpdate("UPDATE professeur SET nom='"+valeurs.get(1)+"', prenom='"+valeurs.get(2)+"', age=" +age+" WHERE id_professeur="+id);
     }
+    
+    public static void ajouterEval(Connexion bdd, ArrayList<String> valeurs) throws SQLException //
+    {
+        
+    }
+    
     
    
 }
