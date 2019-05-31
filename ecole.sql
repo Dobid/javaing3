@@ -47,6 +47,7 @@ CREATE TABLE IF NOT EXISTS `bulletin` (
   `id_bulletin` int(11) NOT NULL AUTO_INCREMENT,
   `id_trimestre` int(11) NOT NULL,
   `id_inscription` int(11) NOT NULL,
+  `moyenne` int(11) DEFAULT NULL,
   `appreciation` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_bulletin`),
   KEY `id_trimestre` (`id_trimestre`),
@@ -57,9 +58,8 @@ CREATE TABLE IF NOT EXISTS `bulletin` (
 -- Déchargement des données de la table `bulletin`
 --
 
-INSERT INTO `bulletin` (`id_bulletin`, `id_trimestre`, `id_inscription`, `appreciation`) VALUES
-(1, 1, 1, 'Très bon élément'),
-(2, 1, 1, 'Element absent');
+INSERT INTO `bulletin` (`id_bulletin`, `id_trimestre`, `id_inscription`, `moyenne`, `appreciation`) VALUES
+(1, 1, 1, 10, 'Très bon élément');
 
 -- --------------------------------------------------------
 
@@ -102,7 +102,15 @@ CREATE TABLE IF NOT EXISTS `detailbulletin` (
   PRIMARY KEY (`id_detailbull`),
   KEY `id_bulletin` (`id_bulletin`),
   KEY `id_ens` (`id_ens`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `detailbulletin`
+--
+
+INSERT INTO `detailbulletin` (`id_detailbull`, `id_bulletin`, `id_ens`, `appreciation`) VALUES
+(1, 1, 1, 'Elément performant'),
+(2, 2, 2, 'Des lacunes');
 
 -- --------------------------------------------------------
 
@@ -195,7 +203,15 @@ CREATE TABLE IF NOT EXISTS `evaluation` (
   `appreciation` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_eval`),
   KEY `id_detailbull` (`id_detailbull`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `evaluation`
+--
+
+INSERT INTO `evaluation` (`id_eval`, `id_detailbull`, `note`, `appreciation`) VALUES
+(8, 1, 16, 'Bien'),
+(16, 1, 4, 'De grosses lacunes');
 
 -- --------------------------------------------------------
 
