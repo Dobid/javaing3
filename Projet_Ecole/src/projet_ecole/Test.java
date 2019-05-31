@@ -23,8 +23,8 @@ public class Test {
        // val.add("67");
        val.add("1");
        val.add("1");
-       val.add("0");
-       val.add("Absent");
+       val.add("4");
+       val.add("De grosses lacunes");
        Update.ajouterEval(base, val);
     }
     

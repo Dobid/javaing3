@@ -66,11 +66,19 @@ public class Update {
     
     public static void setMoyenne(Connexion bdd, int detail, int bulletin, int trimestre, int note) throws SQLException
     {
+        System.out.println(note);
         ArrayList<String> resultat=bdd.remplirChampsRequete("SELECT COUNT(note) FROM evaluation WHERE id_detailbull="+detail);
         int nbr_note=Integer.parseInt(resultat.get(0));
-        resultat=bdd.remplirChampsRequete("SELECT note FROM bulletin WHERE id_bulletin="+bulletin);
-        int moy=(Integer.parseInt(resultat.get(0))+note)/nbr_note;
-        bdd.executeUpdate("UPDATE bulletin SET note="+moy+" WHERE id_bulletin="+bulletin);
+        System.out.println(nbr_note);
+        resultat=bdd.remplirChampsRequete("SELECT moyenne FROM bulletin WHERE id_bulletin="+bulletin);
+        int moy=Integer.parseInt(resultat.get(0));
+        System.out.println(moy);
+        moy=moy+note;
+        System.out.println(moy);
+        moy=moy/nbr_note;
+        System.out.println(moy);
+        System.out.println(resultat.get(0));
+        bdd.executeUpdate("UPDATE bulletin SET moyenne="+moy+" WHERE id_bulletin="+bulletin);
     }
     
     public static void ajouterEval(Connexion bdd, ArrayList<String> valeurs) throws SQLException //id_eleve, trimestre, note, appréciation
@@ -86,6 +94,10 @@ public class Update {
         setMoyenne(bdd, detbul, bul, Integer.parseInt(valeurs.get(1)), Integer.parseInt(valeurs.get(2)));
     }
     
+    public static void modifiereval(Connexion bdd, String nouv_eval, int id) throws SQLException
+    {
+        bdd.executeUpdate("UPDATE bulletin SET evaluation='"+nouv_eval+"' WHERE id_bulletin="+id);
+    }
     
    
 }
