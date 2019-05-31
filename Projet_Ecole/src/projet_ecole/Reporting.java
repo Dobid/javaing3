@@ -18,7 +18,6 @@ public class Reporting {
         ArrayList<String> result=new ArrayList<String>();
         int inscription;
         result=bdd.remplirChampsRequete("SELECT id_inscription FROM inscription WHERE id_eleve="+id_eleve);
-        System.out.println(result.get(0));
         inscription=Integer.parseInt(result.get(0));
         result=bdd.remplirChampsRequete("SELECT appreciation FROM bulletin WHERE id_inscription="+inscription);
         for(int i=0; i<result.size(); i++)
