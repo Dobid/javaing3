@@ -13,6 +13,6 @@ import java.sql.*;
 public abstract class Query {
     public static void afficherTable(Connexion bdd, String table) throws SQLException
     {
-        System.out.println(bdd.remplirChampsRequete("SELECT * FROM " +table));
+        System.out.println(bdd.remplirChampsRequete("SELECT * FROM " +table+"\n"));
     }
 }

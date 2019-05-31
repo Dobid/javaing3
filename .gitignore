@@ -5,6 +5,10 @@ Projet_Ecole/build/built-jar.properties
 Projet_Ecole/build/built-jar.properties
 *.properties
 *.class
+*.xml
+*.class
+*.properties
+*.class
 *.class
 *.xml
 *.xml
