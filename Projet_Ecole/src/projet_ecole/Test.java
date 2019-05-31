@@ -33,8 +33,7 @@ public class Test {
         val.add("Pierre");
         val.add("TD10");
         val.add("2009");
-
-
+        
         Update.inscrireEleve(base, val);
     }
     

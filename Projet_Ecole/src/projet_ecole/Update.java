@@ -81,7 +81,6 @@ public class Update {
         System.out.println(annee);
 
         ArrayList<String> result = new ArrayList<>();
-       // bdd.executeUpdate("INSERT INTO professeur (nom, prenom, age)" + "VALUES ('"+valeurs.get(0)+"', '"+valeurs.get(1)+"', '"+age+ "')");
         String sqlQuery = "SELECT id_eleve FROM eleve WHERE nom='"+nom+"'AND prenom='"+prenom+"'";
         result = bdd.remplirChampsRequete(sqlQuery);
         int id_eleve = Integer.parseInt(result.get(0));
@@ -94,6 +93,18 @@ public class Update {
 
         sqlQuery = "INSERT INTO inscription (id_classe, id_eleve)" + "VALUES ('"+id_classe+"', '"+id_eleve+"')";
         bdd.executeUpdate(sqlQuery);
+
+        sqlQuery = "SELECT id_inscription FROM inscription WHERE id_eleve='"+id_eleve+"'AND id_classe='"+id_classe+"'";
+        result = bdd.remplirChampsRequete(sqlQuery);
+        int id_inscription = Integer.parseInt(result.get(0));
+
+        sqlQuery = "INSERT INTO bulletin (id_trimestre, id_inscription, moyenne)" + "VALUES (1, '"+id_inscription+"', 0)";
+        bdd.executeUpdate(sqlQuery);
+        sqlQuery = "INSERT INTO bulletin (id_trimestre, id_inscription, moyenne)" + "VALUES (2, '"+id_inscription+"', 0)";
+        bdd.executeUpdate(sqlQuery);
+        sqlQuery = "INSERT INTO bulletin (id_trimestre, id_inscription, moyenne)" + "VALUES (3, '"+id_inscription+"', 0)";
+        bdd.executeUpdate(sqlQuery);
+
 
     }
 
