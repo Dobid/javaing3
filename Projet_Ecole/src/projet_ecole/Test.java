@@ -27,7 +27,7 @@ public class Test {
          * 
          * Update.modifierEleve(base, val); Reporting.consulterBulletin(base, 1);
          * Query.afficherTable(base, "eleve");
-         */
+
         val.add("Robert");
         val.add("Pierre");
         val.add("TD10");
@@ -38,7 +38,12 @@ public class Test {
         val2.add("1");
         val2.add("4");
         val2.add("De grosses lacunes");
-        Update.ajouterEval(base, val2);
+        Update.ajouterEval(base, val2);*/
+
+        val.add("TD09");
+
+
+        Update.supprClasse(base, val);
     }
 
 }

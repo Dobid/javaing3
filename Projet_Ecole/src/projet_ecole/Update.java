@@ -41,12 +41,34 @@ public class Update {
         bdd.executeUpdate("INSERT INTO discipline(nom)" + "VALUES ('" + valeurs.get(0) + "')");
     }
 
+
+
     public static void ajoutClasse(Connexion bdd, ArrayList<String> valeurs) throws SQLException {
-        int ecole = Integer.parseInt(valeurs.get(1), 10);
-        int niveau = Integer.parseInt(valeurs.get(2), 10);
-        int annee = Integer.parseInt(valeurs.get(3), 10);
-        bdd.executeUpdate("INSERT INTO classe (nom, id_ecole, id_niveau, id_annee)" + "VALUES ('" + valeurs.get(0)
-                + "', '" + ecole + "', '" + niveau + "', '" + annee + "')");
+
+        ArrayList<String> resultat = new ArrayList<>();
+        String nomClasse = valeurs.get(0);
+        String niveau = valeurs.get(1);
+        String sqlQuery = "SELECT id_niveau FROM niveau WHERE nom='" + niveau +"'";
+        resultat = bdd.remplirChampsRequete(sqlQuery);
+        int id_niveau = Integer.parseInt(resultat.get(0));
+
+        sqlQuery = "INSERT INTO classe (nom, id_ecole, id_niveau, id_annee)" + "VALUES ('" + nomClasse + "', 1, '"
+                + id_niveau + "', 2009)";
+
+
+        bdd.executeUpdate(sqlQuery);
+    }
+
+    public static void supprClasse(Connexion bdd, ArrayList<String> valeurs) throws SQLException
+    {
+        ArrayList<String> resultat = new ArrayList<>();
+        String nomClasse = valeurs.get(0);
+        String sqlQuery = "SELECT id_classe FROM classe WHERE nom='" + nomClasse +"'";
+        resultat = bdd.remplirChampsRequete(sqlQuery);
+        int id_classe = Integer.parseInt(resultat.get(0));
+
+        sqlQuery = "DELETE FROM classe WHERE id_classe="+id_classe+"";
+        bdd.executeUpdate(sqlQuery);
     }
 
     public static void ajoutProf(Connexion bdd, ArrayList<String> valeurs) throws SQLException {
@@ -142,7 +164,7 @@ public class Update {
 
     }
 
-    public static void modifiereval(Connexion bdd, String nouv_eval, int id) throws SQLException {
+    public static void modifierAppEval(Connexion bdd, String nouv_eval, int id) throws SQLException {
         bdd.executeUpdate("UPDATE bulletin SET evaluation='" + nouv_eval + "' WHERE id_bulletin=" + id);
     }
 
