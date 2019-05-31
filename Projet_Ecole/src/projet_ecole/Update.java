@@ -15,11 +15,13 @@ import java.lang.*;
  */
 public class Update {
     
-    public void modifierEleve(Connexion bdd, ArrayList<String> valeurs)
+    public static void modifierEleve(Connexion bdd, ArrayList<String> valeurs) throws SQLException
     {
-        
+        int id=Integer.parseInt(valeurs.get(0), 10);
+         int age= Integer.parseInt(valeurs.get(3), 10);
+         bdd.executeUpdate("UPDATE eleve SET nom='"+valeurs.get(1)+"', prenom='"+valeurs.get(2)+"', age=" +age+" WHERE id_eleve="+id);
     }
-    public void modifier(Connexion bdd, String table, ArrayList <String> valeurs)
+    public void modifier(Connexion bdd, String table, ArrayList <String> valeurs) throws SQLException
     {
         if(table=="eleve")
             modifierEleve(bdd, valeurs);
@@ -34,6 +36,11 @@ public class Update {
     public static void ajoutNiveau(Connexion bdd, ArrayList<String> valeurs) throws SQLException
     {   
         bdd.executeUpdate("INSERT INTO niveau (nom)" + "VALUES ('"+valeurs.get(0)+"')");
+    }
+    
+    public static void ajoutDiscipline(Connexion bdd, ArrayList<String> valeurs) throws SQLException
+    {
+        bdd.executeUpdate("INSERT INTO discipline(nom)"+ "VALUES ('"+valeurs.get(0)+"')");
     }
     
     public static void ajoutClasse(Connexion bdd, ArrayList<String> valeurs) throws SQLException
@@ -56,8 +63,12 @@ public class Update {
          int age= Integer.parseInt(valeurs.get(3), 10);
          bdd.executeUpdate("UPDATE professeur SET nom='"+valeurs.get(1)+"', prenom='"+valeurs.get(2)+"', age=" +age+" WHERE id_professeur="+id);
     }
-     
-     
+    
+    public static void ajouterEval(Connexion bdd, ArrayList<String> valeurs) throws SQLException //
+    {
+        
+    }
+    
     
    
 }
