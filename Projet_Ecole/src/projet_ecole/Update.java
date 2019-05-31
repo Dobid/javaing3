@@ -69,6 +69,32 @@ public class Update {
         
     }
     
-    
-   
+    public static void inscrireEleve(Connexion bdd, ArrayList<String> valeurs)throws SQLException
+    {
+        String nom = valeurs.get(0);
+        System.out.println(nom);
+        String prenom = valeurs.get(1);
+        System.out.println(prenom);
+        String nomClasse = valeurs.get(2);
+        System.out.println(nomClasse);
+        String annee = valeurs.get(3);
+        System.out.println(annee);
+
+        ArrayList<String> result = new ArrayList<>();
+       // bdd.executeUpdate("INSERT INTO professeur (nom, prenom, age)" + "VALUES ('"+valeurs.get(0)+"', '"+valeurs.get(1)+"', '"+age+ "')");
+        String sqlQuery = "SELECT id_eleve FROM eleve WHERE nom='"+nom+"'AND prenom='"+prenom+"'";
+        result = bdd.remplirChampsRequete(sqlQuery);
+        int id_eleve = Integer.parseInt(result.get(0));
+        System.out.println(id_eleve);
+
+        sqlQuery = "SELECT id_classe FROM classe WHERE nom='"+nomClasse+"'AND id_annee='"+annee+"'";
+        result = bdd.remplirChampsRequete(sqlQuery);
+        int id_classe = Integer.parseInt(result.get(0));
+        System.out.println(id_classe);
+
+        sqlQuery = "INSERT INTO inscription (id_classe, id_eleve)" + "VALUES ('"+id_classe+"', '"+id_eleve+"')";
+        bdd.executeUpdate(sqlQuery);
+
+    }
+
 }
