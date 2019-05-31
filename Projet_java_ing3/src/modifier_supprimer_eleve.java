@@ -26,9 +26,7 @@ public class modifier_supprimer_eleve extends JFrame {
   private JButton but_eleve= new JButton(" eleve");
   
   
-  private JTextField eleve1 =new JTextField("rentrer eleve");
- private JTextField info_eleve1 =new JTextField("eleve existe");
-  private JButton but_eleve1= new JButton(" eleve");
+
   
   
   private JLabel modif = new JLabel("info a modifier");
@@ -52,12 +50,12 @@ public class modifier_supprimer_eleve extends JFrame {
     
     
     /// boutton de top
-    but_eleve1.addActionListener(new BoutonListener());
+
     but_bulletin.addActionListener(new BoutonListener());
-    but_bulletin.setEnabled(false);
+
     but_evaluation.addActionListener(new BoutonListener());
-    but_evaluation.setEnabled(false);
-    info_eleve1.setEnabled(false);
+
+
     
      //// boutton de top2
     but_eleve.addActionListener(new BoutonListener());
@@ -67,9 +65,7 @@ public class modifier_supprimer_eleve extends JFrame {
 	
     top.add(label);
     top.add(modif);
-    top.add(eleve1);
-    top.add(info_eleve1);
-    top.add(but_eleve1);
+ 
     
     top.add(but_bulletin);
     top.add(but_evaluation);
@@ -102,27 +98,7 @@ public class modifier_supprimer_eleve extends JFrame {
   class BoutonListener implements ActionListener{
 	    public void actionPerformed(ActionEvent e) {
 	    	 Object source = e.getSource();
-
-	    		if(source ==but_eleve1)
-	    		{
-	    			/// verification eleve existe
-	    	
-	    			info_eleve1.setBackground(Color.GREEN);
-	    			
-	    			
-	    			/// si eleve existe
-	    			info_eleve1.setText(eleve1.getText());
-	    			but_bulletin.setEnabled(true);
-	    			but_evaluation.setEnabled(true);
-	    			
-	    		}
-	    	 
-	    	 
-	    	 
-	    	 
-	    	 
-	    	 
-	    	 
+	 
 	    		if(source ==but_eleve)
 	    		{
 	    			/// verification eleve existe
@@ -148,14 +124,14 @@ public class modifier_supprimer_eleve extends JFrame {
 	if(source ==but_bulletin)
 	{
 		  System.out.println("TEXT : Executer bulletin  " );
-		
+		new modifier_supprimer_eleve_bulletin();
 	
 	}
 	if(source ==but_evaluation)
 	{
 		  System.out.println("TEXT : Executer bulletin  " );
 	
-	
+	new modifier_supprimer_eleve_evaluation();
 	}
 	
 	

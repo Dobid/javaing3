@@ -25,6 +25,7 @@ public class Fenetre extends JFrame {
   private JButton but_classe= new JButton("Ajout classe");
   private JButton but_prof= new JButton("Ajout prof");
   private JButton but_disci= new JButton("Ajout discipline");
+  private JButton but_eval= new JButton("Ajout evaluation");
   
 
   public Fenetre(){
@@ -44,6 +45,7 @@ public class Fenetre extends JFrame {
     but_classe.addActionListener(new BoutonListener());
     but_prof.addActionListener(new BoutonListener());
     but_disci.addActionListener(new BoutonListener());
+    but_eval.addActionListener(new BoutonListener());
      
     
     
@@ -52,6 +54,7 @@ public class Fenetre extends JFrame {
     top.add(but_prof);
     top.add(but_classe);
     top.add(but_disci);
+    top.add(but_eval);
   
    top.setBounds(20, 78, 100, 200);
     container.add(top);
@@ -92,7 +95,12 @@ public class Fenetre extends JFrame {
 		  System.out.println("TEXT : Executer fenetre disci" );
 		new ajout_discipline();
 	}
-
+	
+	if(source ==but_eval)
+	{
+		  System.out.println("TEXT : Executer fenetre disci" );
+		new ajout_evaluation();
+	}
 	    }
 	  }
  
