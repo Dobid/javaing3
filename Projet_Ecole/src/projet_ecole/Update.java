@@ -57,7 +57,7 @@ public class Update {
         bdd.executeUpdate("INSERT INTO professeur (nom, prenom, age)" + "VALUES ('"+valeurs.get(0)+"', '"+valeurs.get(1)+"', '"+age+ "')");
     }
      
-    public static void modifierProf(Connexion bdd, ArrayList<String> valeurs) throws SQLException
+    public static void modifierProf(Connexion bdd, ArrayList<String> valeurs) throws SQLException //id, nom, prenom, age
     {
         int id=Integer.parseInt(valeurs.get(0), 10);
          int age= Integer.parseInt(valeurs.get(3), 10);
