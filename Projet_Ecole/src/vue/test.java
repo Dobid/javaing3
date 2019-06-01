@@ -12,10 +12,10 @@ public class test {
             val.add("NS2");
             val.add("16");
             val.add("Ne devrait rien afficher");
-            bdd.modifierAppEval(val);
+            bdd.modifierEval(val);
 		//new Fenetre2();
 			
 			
-			}
+	}
 	 
  }

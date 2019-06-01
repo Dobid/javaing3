@@ -188,7 +188,7 @@ public class Database {
 
 	    }
 
-	    public   void modifierAppEval(ArrayList<String> val) throws SQLException {
+	    public   void modifierEval(ArrayList<String> val) throws SQLException {
 	        int nouv_eval;
                 String nouv_app;
                 if(val.get(0)!="")
