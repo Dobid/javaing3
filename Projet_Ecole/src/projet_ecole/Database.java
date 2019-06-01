@@ -211,10 +211,31 @@ public class Database {
                             nouv_app=val.get(2);
                         bdd.executeUpdate("UPDATE evaluation SET appreciation='" + nouv_app + "' WHERE nom='" + nom_eval+"'");
                         bdd.executeUpdate("UPDATE evaluation SET note=" + nouv_eval + " WHERE nom='" + nom_eval+"'");
+                        
+                    int moy=0;
+                    int detail, bulletin;
+                    String[] notes;
+                    resultat=bdd.remplirChampsRequete("SELECT id_detailbull FROM evaluation WHERE nom='"+nom_eval+"'");
+                    detail=Integer.parseInt(resultat.get(0));
+                    resultat=bdd.remplirChampsRequete("SELECT id_bulletin FROM detailbulletin WHERE id_detailbull="+detail);
+                    bulletin=Integer.parseInt(resultat.get(0));
+                    //resultat=bdd.remplirChampsRequete("SELECT moyenne FROM bulletin WHERE id_bulletin="+bulletin);
+                   // moy=Integer.parseInt(resultat.get(0));
+                    resultat=bdd.remplirChampsRequete("SELECT COUNT(note) FROM evaluation WHERE nom='"+nom_eval+"'");
+                    int nbr_note=Integer.parseInt(resultat.get(0));
+                    resultat=bdd.remplirChampsRequete("SELECT note FROM evaluation WHERE id_detailbull="+detail);
+	            notes=new String[resultat.size()];
+	            for (int i=0; i<resultat.size(); i++)
+	            {
+	                notes[i]=resultat.get(i);
+	                moy=moy+Integer.parseInt(notes[i]);
+	            }
+	            moy=moy/resultat.size();
+	            bdd.executeUpdate("UPDATE bulletin SET moyenne="+moy+" WHERE id_bulletin="+bulletin);
                     }
-	    
                 }
             }
+            
                 
 	    
 	    public   void supEval(  int id) throws SQLException
