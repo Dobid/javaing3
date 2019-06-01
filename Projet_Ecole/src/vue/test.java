@@ -15,14 +15,13 @@ public class test {
 		//new Fenetre2();
 			
 		//new modifier_supprimer_prof();
+		 val.add("Depardieu");
+		 val.add("Gérard");
+		 val.add("2");
+		 val.add("DS2");
+		 val.add("14");
+		 val.add("Ensemble correct");
 
-		 val.add("TD02");
-		 val.add("ING4");
-		 bdd.ajoutClasse(val);
-
-		 val2.add("NS2");
-		 val2.add("16");
-		 val2.add("Ne devrait rien afficher");
-		 bdd.modifierEval(val2);
+		 bdd.ajouterEval(val);
 	 }
 }
