@@ -291,10 +291,6 @@ public class Database {
 	            bdd.executeUpdate("UPDATE bulletin SET moyenne="+nouv_moy+" WHERE id_bulletin="+bulletin);
 	        }
 	    }
-	    
-	    public   void prof (Connexion bdd)
-	    {
-	        
-	    }
+}
 
 

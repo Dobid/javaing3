@@ -23,6 +23,6 @@ public class test {
 		 val2.add("NS2");
 		 val2.add("16");
 		 val2.add("Ne devrait rien afficher");
-		 bdd.modifierAppEval(val2);
+		 bdd.modifierEval(val2);
 	 }
 }
