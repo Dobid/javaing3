@@ -341,6 +341,32 @@ public class Database {
 	            bdd.executeUpdate("UPDATE bulletin SET moyenne="+nouv_moy+" WHERE id_bulletin="+bulletin);
 	        }
 	    }
+            
+            public void supProf(ArrayList<String> val) throws SQLException //nom, prenom
+            {
+                if(!isPersExiste(val, 0))
+                {
+                    ArrayList<String> resultat=bdd.remplirChampsRequete("SELECT id_professeur FROM professeur WHERE nom='"+val.get(0)+"'");
+                    int id_prof=Integer.parseInt(resultat.get(0));
+                    bdd.executeUpdate("DELETE FROM enseignement WHERE id_professeur="+id_prof);
+                    bdd.executeUpdate("DELETE FROM professeur WHERE id_professeur="+id_prof);
+                }
+            }
+            
+            public void supClasse(ArrayList<String> val) throws SQLException //classe, niveau
+            {
+                if(!isClasseExist(val))
+                {
+                    int id_niv;
+                    int id_clas;
+                    ArrayList<String> resultat=bdd.remplirChampsRequete("SELECT id_niveau FROM niveau WHERE nom='"+val.get(1)+"'");
+                    id_niv=Integer.parseInt(resultat.get(0));
+                    resultat=bdd.remplirChampsRequete("SELECT id_classe FROM classe WHERE nom='"+val.get(0)+"' AND id_niveau="+id_niv);
+                    id_clas=Integer.parseInt(resultat.get(0));
+                    bdd.executeUpdate("DELETE FROM enseignement WHERE id_classe="+id_clas);
+                    bdd.executeUpdate("DELETE FROM classe WHERE id_classe="+id_clas);
+                }
+            }
 }
 
 

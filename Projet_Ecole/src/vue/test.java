@@ -18,13 +18,9 @@ public class test {
 
 		 
                  
-                 val2.add("Coudray");
-                 val2.add("Fabienne");
-                 val2.add("Electronique");
-                 val2.add("TD01");
+                 val2.add("TD09");
                  val2.add("ING1");
-                 
-                 bdd.modifierProf(val2);
+                 bdd.supClasse(val2);
                  
 	 }
 }
