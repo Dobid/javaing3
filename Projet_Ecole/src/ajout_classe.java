@@ -1,3 +1,4 @@
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -10,29 +11,40 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-
+import projet_ecole.Database;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-public class ajout_eleve extends JFrame{
+public class ajout_classe extends JFrame{
 
 	
-	
+	Database bdd;
 	
 	 private JPanel container = new JPanel();
 	  private JLabel label = new JLabel("ajout       ");
 	  private JTextField nom= new JTextField("nom");
-	  private JTextField prenom= new JTextField("prenom");
-	  private JTextField id= new JTextField("id");
+	  private JTextField id_ecole= new JTextField("id_ecole");
+	  private JTextField id_niveau= new JTextField("id_niveau");
+	  private JTextField id_annee= new JTextField("id annee");
 	  
-	  
-	  private JButton but_valider= new JButton("valider eleve");
+	  private JButton but_valider= new JButton("valider classe");
 	
 	  
 
-	  public ajout_eleve(){
+	  public ajout_classe() throws ClassNotFoundException{
+		  
+		  try {
+			  bdd=new Database();
+	  } catch(SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		  
+		  
 	    this.setTitle("fentreloliloio");
 	    this.setSize(600, 600);
 	 //   this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,12 +64,13 @@ public class ajout_eleve extends JFrame{
 	    
 	    top.add(label);
 	    top.add(nom);
-	    top.add(prenom);
-	    top.add(id);
+	    top.add(id_ecole);
+	    top.add(id_niveau);
+	    top.add(id_annee);
 	    top.add(but_valider);
 	  
 	  
-	   top.setBounds(20, 78, 70, 200);
+	   top.setBounds(20, 78, 90, 200);
 	    container.add(top);
 	    
 	    
@@ -76,8 +89,19 @@ public class ajout_eleve extends JFrame{
 		    	 Object source = e.getSource();
 		if(source ==but_valider)
 		{
-			  System.out.println("TEXT : Executer valider eleve  " );
-			  //envoyer requete sql
+			  ArrayList<String> val=new ArrayList<String>();
+				 
+			  val.add(nom.getText());
+			  val.add(id_ecole.getText());
+			  val.add(id_niveau.getText());
+			  val.add(id_annee.getText());
+	
+			  try {
+				bdd.ajoutClasse(val);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		    	
 	
@@ -86,3 +110,4 @@ public class ajout_eleve extends JFrame{
 		  }
 	 
 }
+

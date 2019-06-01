@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-
+import projet_ecole.Database;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -76,18 +76,33 @@ public class Fenetre extends JFrame {
 	if(source ==but_eleve)
 	{
 		  System.out.println("TEXT : Executer fenetre eleve  " );
-		  new  ajout_eleve();
+		  try {
+			new  ajout_eleve();
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 	    	
 	if(source ==but_classe)
 	{
 		  System.out.println("TEXT : Executer fenetre classe " );
-		  new ajout_classe();
+		  try {
+			new ajout_classe();
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 	if(source ==but_prof)
 	{
 		  System.out.println("TEXT : Executer fenetre prof  " );
-		  new ajout_prof();
+		  try {
+			new ajout_prof();
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 	}
 	if(source ==but_disci)

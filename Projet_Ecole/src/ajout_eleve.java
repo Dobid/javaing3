@@ -10,30 +10,38 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-
+import projet_ecole.Database;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-public class ajout_prof extends JFrame{
+public class ajout_eleve extends JFrame{
 
 	
-	
+	Database bdd;
 	
 	 private JPanel container = new JPanel();
 	  private JLabel label = new JLabel("ajout       ");
 	  private JTextField nom= new JTextField("nom");
 	  private JTextField prenom= new JTextField("prenom");
-	  private JTextField id= new JTextField("id");
-	  private JTextField enseigne= new JTextField("enseignement");
+	  private JTextField age= new JTextField("age");
 	  
 	  
-	  private JButton but_valider= new JButton("valider prof");
+	  private JButton but_valider= new JButton("valider eleve");
 	
 	  
 
-	  public ajout_prof(){
+	  public ajout_eleve() throws ClassNotFoundException{
+		  
+		  try {
+			  bdd=new Database();
+	  } catch(SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
 	    this.setTitle("fentreloliloio");
 	    this.setSize(600, 600);
 	 //   this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,13 +62,11 @@ public class ajout_prof extends JFrame{
 	    top.add(label);
 	    top.add(nom);
 	    top.add(prenom);
-	    top.add(id);
-	    top.add(enseigne);
-	    
+	    top.add(age);
 	    top.add(but_valider);
 	  
 	  
-	   top.setBounds(20, 78, 90, 200);
+	   top.setBounds(20, 78, 70, 200);
 	    container.add(top);
 	    
 	    
@@ -79,9 +85,19 @@ public class ajout_prof extends JFrame{
 		    	 Object source = e.getSource();
 		if(source ==but_valider)
 		{
-			  System.out.println("TEXT : Executer valider prof " );
-			  //envoyer requete sql
-			//  container.removeAll();
+			  System.out.println("TEXT : Executer valider eleve  " );
+			  ArrayList<String> val=new ArrayList<String>();
+			 
+			  val.add(nom.getText());
+			  val.add(prenom.getText());
+			  val.add(age.getText());
+			  try {
+				bdd.ajoutEleve(val);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			  
 		}
 		    	
 	
@@ -90,3 +106,4 @@ public class ajout_prof extends JFrame{
 		  }
 	 
 }
+
