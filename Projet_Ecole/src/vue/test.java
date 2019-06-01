@@ -16,13 +16,15 @@ public class test {
 			
 		//new modifier_supprimer_prof();
 
-		 val.add("TD02");
-		 val.add("ING4");
-		 bdd.ajoutClasse(val);
-
-		 val2.add("NS2");
-		 val2.add("16");
-		 val2.add("Ne devrait rien afficher");
-		 bdd.modifierEval(val2);
+		 
+                 
+                 val2.add("Coudray");
+                 val2.add("Fabienne");
+                 val2.add("Electronique");
+                 val2.add("TD01");
+                 val2.add("ING1");
+                 
+                 bdd.modifierProf(val2);
+                 
 	 }
 }
