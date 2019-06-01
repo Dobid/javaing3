@@ -185,9 +185,6 @@ public class Update {
         }
     }
     
-    public static void prof (Connexion bdd)
-    {
-        
-    }
+    
 
 }
