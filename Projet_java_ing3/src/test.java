@@ -9,7 +9,7 @@ public class test {
 //	new modifier_supprimer_eleve();
 		new Fenetre2();
 			
-	
+		//new modifier_supprimer_prof();
 			
 			}
 	 

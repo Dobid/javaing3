@@ -79,18 +79,18 @@ public class modifier_supprimer extends JFrame {
 	if(source ==but_classe)
 	{
 		  System.out.println("TEXT : Execute classe " );
-		
+		new modifier_supprimer_classe();
 	}
 	if(source ==but_prof)
 	{
 		  System.out.println("TEXT : Executer prof  " );
-		
+		new modifier_supprimer_prof();
 		
 	}
 	if(source ==but_disci)
 	{
 		  System.out.println("TEXT : Executer  disci" );
-	
+			new modifier_supprimer_discipline();
 	}
 
 	    }
