@@ -15,10 +15,10 @@ import java.util.Scanner;
  * @author sebas
  */
 public class Test {
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        Connexion base = new Connexion("ecole", "root", "");
+    /*static void main(String[] args) throws SQLException, ClassNotFoundException {
+        Database bdd=new Database();
         ArrayList<String> val = new ArrayList<String>();
-        ArrayList<String> val2 = new ArrayList<String>();
+        ArrayList<String> val2 = new ArrayList<String>();*/
         // val.add("CM2");
         // val.add("pour");
         // val.add("67");
@@ -27,23 +27,24 @@ public class Test {
          * 
          * Update.modifierEleve(base, val); Reporting.consulterBulletin(base, 1);
          * Query.afficherTable(base, "eleve");
-
+         
         val.add("Robert");
         val.add("Pierre");
         val.add("TD10");
         val.add("2009");
 
-        Update.inscrireEleve(base, val);
-        val2.add("1");
-        val2.add("1");
-        val2.add("4");
-        val2.add("De grosses lacunes");
-        Update.ajouterEval(base, val2);*/
+        val2.add("Pinot");
+        val2.add("Jean");
+        val2.add("34");
+        val2.add("Mathematiques");
+        val2.add("TD10");
+        
+        Update.ajoutProf(base, val2);*/
+/*
+        val.add("TD02");
+        val.add("ING4");
+        bdd.ajoutClasse(val);
 
-        val.add("TD09");
-
-
-        Update.supprClasse(base, val);
-    }
+    }*/
 
 }
