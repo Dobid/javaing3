@@ -20,12 +20,10 @@ public class Test {
     {
         Database bdd=new Database();
         ArrayList <String> val=new ArrayList<String>();
-        val.add("Coudray");
-        val.add("Fabienne");
-        val.add("Mathematiques");
-        val.add("TD01");
-        val.add("ING1");
-        bdd.ajoutProf(val);
+        val.add("NS1");
+        val.add("14");
+        val.add("");
+        bdd.modifierAppEval(val);
     }
     
     /* public static void main(String[] args) throws SQLException, ClassNotFoundException {

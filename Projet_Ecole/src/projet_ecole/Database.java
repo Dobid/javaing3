@@ -188,9 +188,34 @@ public class Database {
 
 	    }
 
-	    public   void modifierAppEval(  String nouv_eval, int id) throws SQLException {
-	        bdd.executeUpdate("UPDATE evaluation SET appreciation='" + nouv_eval + "' WHERE id_evaluation=" + id);
-	    }
+	    public   void modifierAppEval(ArrayList<String> val) throws SQLException {
+	        int nouv_eval;
+                String nouv_app;
+                if(val.get(0)!="")
+                {
+                    String nom_eval=val.get(0);
+                    ArrayList<String> resultat=new ArrayList();
+                    resultat=bdd.remplirChampsRequete("SELECT note FROM evaluation WHERE nom='"+nom_eval+"'");
+                    if(!resultat.isEmpty())
+                    {
+                        int anc_note=Integer.parseInt(resultat.get(0));
+                        resultat=bdd.remplirChampsRequete("SELECT appreciation FROM evaluation WHERE nom='"+nom_eval+"'");
+                        String anc_app=resultat.get(0);
+                        if(val.get(1)=="")
+                            nouv_eval=anc_note;
+                        else
+                            nouv_eval=Integer.parseInt(val.get(1));
+                        if(val.get(2)=="")
+                            nouv_app=anc_app;
+                        else 
+                            nouv_app=val.get(2);
+                        bdd.executeUpdate("UPDATE evaluation SET appreciation='" + nouv_app + "' WHERE nom='" + nom_eval+"'");
+                        bdd.executeUpdate("UPDATE evaluation SET note=" + nouv_eval + " WHERE nom='" + nom_eval+"'");
+                    }
+	    
+                }
+            }
+                
 	    
 	    public   void supEval(  int id) throws SQLException
 	    {
