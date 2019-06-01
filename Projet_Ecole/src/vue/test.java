@@ -19,6 +19,10 @@ public class test {
 		 val.add("TD02");
 		 val.add("ING4");
 		 bdd.ajoutClasse(val);
-	 }
 
- }
+		 val2.add("NS2");
+		 val2.add("16");
+		 val2.add("Ne devrait rien afficher");
+		 bdd.modifierAppEval(val2);
+	 }
+}
