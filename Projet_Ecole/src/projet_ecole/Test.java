@@ -15,7 +15,7 @@ import java.util.Scanner;
  * @author sebas
  */
 public class Test {
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+   /* public static void main(String[] args) throws SQLException, ClassNotFoundException {
         Connexion base = new Connexion("ecole", "root", "");
         ArrayList<String> val = new ArrayList<String>();
         ArrayList<String> val2 = new ArrayList<String>();
@@ -27,7 +27,7 @@ public class Test {
          * 
          * Update.modifierEleve(base, val); Reporting.consulterBulletin(base, 1);
          * Query.afficherTable(base, "eleve");
-         */
+         
         val.add("Robert");
         val.add("Pierre");
         val.add("TD10");
@@ -41,5 +41,5 @@ public class Test {
         
         Update.ajoutProf(base, val2);
     }
-
+*/
 }
