@@ -81,12 +81,8 @@ public class Update {
         System.out.println(nbr_note);
         resultat = bdd.remplirChampsRequete("SELECT moyenne FROM bulletin WHERE id_bulletin=" + bulletin);
         int moy = Integer.parseInt(resultat.get(0));
-        System.out.println(moy);
         moy = moy + note;
-        System.out.println(moy);
         moy = moy / nbr_note;
-        System.out.println(moy);
-        System.out.println(resultat.get(0));
         bdd.executeUpdate("UPDATE bulletin SET moyenne=" + moy + " WHERE id_bulletin=" + bulletin);
     }
 
