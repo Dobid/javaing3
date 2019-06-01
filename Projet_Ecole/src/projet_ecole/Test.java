@@ -15,7 +15,20 @@ import java.util.Scanner;
  * @author sebas
  */
 public class Test {
-   /* public static void main(String[] args) throws SQLException, ClassNotFoundException {
+  
+    public static void main(String[] args) throws SQLException, ClassNotFoundException
+    {
+        Database bdd=new Database();
+        ArrayList <String> val=new ArrayList<String>();
+        val.add("Coudray");
+        val.add("Fabienne");
+        val.add("Mathematiques");
+        val.add("TD01");
+        val.add("ING1");
+        bdd.ajoutProf(val);
+    }
+    
+    /* public static void main(String[] args) throws SQLException, ClassNotFoundException {
         Connexion base = new Connexion("ecole", "root", "");
         ArrayList<String> val = new ArrayList<String>();
         ArrayList<String> val2 = new ArrayList<String>();
