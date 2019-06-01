@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+
 /**
  *
  * @author sebas
@@ -26,6 +27,7 @@ public class Connexion {
     private Statement stmt;
     private ResultSet rset;
     private ResultSetMetaData rsetMeta;
+   
     /**
      * ArrayList public pour les tables
      */
@@ -60,6 +62,9 @@ public class Connexion {
 
         // crÃ©ation d'un ordre SQL (statement)
         stmt = conn.createStatement();
+        
+        //utile pour les clés étrangères
+       
     }
 
     /**
@@ -150,7 +155,7 @@ public class Connexion {
         }
 
         // ajouter un "\n" Ã  la ligne des champs
-        champs = champs + "\n";
+       // champs = champs + "\n";
 
         // ajouter les champs de la ligne dans l'ArrayList
         liste.add(champs);
@@ -190,7 +195,7 @@ public class Connexion {
             }
 
             // ajouter un "\n" Ã  la ligne des champs
-            champs = champs + "\n";
+         //   champs = champs + "\n";
 
             // ajouter les champs de la ligne dans l'ArrayList
             liste.add(champs);
@@ -208,5 +213,5 @@ public class Connexion {
     public void executeUpdate(String requeteMaj) throws SQLException {
         stmt.executeUpdate(requeteMaj);
     }
-    
+
 }

@@ -4,11 +4,15 @@
  * and open the template in the editor.
  */
 package projet_ecole;
+import java.sql.*;
 
 /**
  *
  * @author sebas
  */
-public class Query {
-    
+public abstract class Query {
+    public static void afficherTable(Connexion bdd, String table) throws SQLException
+    {
+        System.out.println(bdd.remplirChampsRequete("SELECT * FROM " +table+"\n"));
+    }
 }
