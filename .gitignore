@@ -1,4 +1,18 @@
 
+*.iml
+Projet_Ecole/out/production/Projet_Ecole/projet_ecole/Update.class
+Projet_Ecole/out/production/Projet_Ecole/projet_ecole/Test.class
+Projet_Ecole/out/production/Projet_Ecole/projet_ecole/Reporting.class
+Projet_Ecole/out/production/Projet_Ecole/projet_ecole/Query.class
+Projet_Ecole/out/production/Projet_Ecole/projet_ecole/Menu.class
+Projet_Ecole/out/production/Projet_Ecole/projet_ecole/Connexion.class
+Projet_Ecole/lib/mysql-connector-java-5.1.18-bin.jar
+Projet_Ecole/.idea/workspace.xml
+Projet_Ecole/.idea/vcs.xml
+Projet_Ecole/.idea/modules.xml
+Projet_Ecole/.idea/misc.xml
+*.xml
+*.properties
 Projet_Ecole/build/built-jar.properties
 Projet_Ecole/build/built-jar.properties
 Projet_Ecole/build/built-jar.properties

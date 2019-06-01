@@ -10,6 +10,17 @@ public class Database {
 	{
 		bdd=new Connexion("ecole", "root", "");
 	}
+
+	public boolean isClasseExist(ArrayList<String> val) throws SQLException
+	{
+		ArrayList<String> resNiv = new ArrayList<>();
+		String nomClasse = val.get(0);
+		String niveauStr = val.get(1);
+		resNiv = bdd.remplirChampsRequete("SELECT id_niveau FROM niveau WhERE nom='"+niveauStr+"'");
+		int id_niveau = Integer.parseInt(resNiv.get(0));
+		ArrayList<String> resNivCla = bdd.remplirChampsRequete("SELECT id_classe FROM classe WHERE id_niveau="+id_niveau+" AND nom='"+nomClasse+"'");
+		return resNivCla.isEmpty();
+	}
         
         public boolean isPersExiste(ArrayList<String> val, int table) throws SQLException //0 prof, 1 eleve
         {
@@ -56,33 +67,42 @@ public class Database {
 	    }
 
 	    public   void ajoutClasse(  ArrayList<String> valeurs) throws SQLException {
-	        int ecole = Integer.parseInt(valeurs.get(1), 10);
-	        int niveau = Integer.parseInt(valeurs.get(2), 10);
-	        int annee = Integer.parseInt(valeurs.get(3), 10);
-	        bdd.executeUpdate("INSERT INTO classe (nom, id_ecole, id_niveau, id_annee)" + "VALUES ('" + valeurs.get(0)
-	                + "', '" + ecole + "', '" + niveau + "', '" + annee + "')");
+
+	        if(this.isClasseExist(valeurs))
+			{
+				String nomClasse = valeurs.get(0);
+				String niveauStr = valeurs.get(1);
+				ArrayList<String> res = bdd.remplirChampsRequete("SELECT id_niveau FROM niveau WHERE nom='"+niveauStr+"'");
+				int niveau = Integer.parseInt(res.get(0));
+				bdd.executeUpdate("INSERT INTO classe (nom, id_ecole, id_niveau, id_annee)" + "VALUES ('" + nomClasse
+						+ "', 1, '" + niveau + "', 2009)");
+			}
+	        else
+			{
+				System.out.println("Classe déjà existante");
+			}
+
 	    }
 
 	    public   void ajoutProf(  ArrayList<String> valeurs) throws SQLException { //nom, prenom, age, discipline, classe
-	    	if(isPersExiste(valeurs, 0))
-                {   ArrayList<String> resNiv = new ArrayList<String>();
-                    ArrayList<String> resCla = new ArrayList<String>();
-                    ArrayList<String> resDis = new ArrayList<String>();
+	    	ArrayList<String> resNiv = new ArrayList<String>();
+			ArrayList<String> resCla = new ArrayList<String>();
+			ArrayList<String> resDis = new ArrayList<String>();
 			
-                    resNiv = bdd.remplirChampsRequete("SELECT id_niveau FROM niveau WHERE nom='" + valeurs.get(5) + "'");
-                    resDis = bdd.remplirChampsRequete("SELECT id_discipline FROM discipline WHERE nom='" + valeurs.get(3) + "'");
-                    if (!resNiv.isEmpty()) {
-			int niveau = Integer.parseInt(resNiv.get(0));
-			resCla = bdd.remplirChampsRequete(
-				"SELECT id_classe FROM classe WHERE nom='" + valeurs.get(4) + "'AND id_niveau=" + niveau);
-			if (!resCla.isEmpty() && !resDis.isEmpty()) {
-                		int classe = Integer.parseInt(resCla.get(0));
+			resNiv = bdd.remplirChampsRequete("SELECT id_niveau FROM niveau WHERE nom='" + valeurs.get(5) + "'");
+			resDis = bdd.remplirChampsRequete("SELECT id_discipline FROM discipline WHERE nom='" + valeurs.get(3) + "'");
+			if (!resNiv.isEmpty()) {
+				int niveau = Integer.parseInt(resNiv.get(0));
+				resCla = bdd.remplirChampsRequete(
+						"SELECT id_classe FROM classe WHERE nom='" + valeurs.get(4) + "'AND id_niveau=" + niveau);
+				if (!resCla.isEmpty() && !resDis.isEmpty()) {
+					int classe = Integer.parseInt(resCla.get(0));
 
-				int age = Integer.parseInt(valeurs.get(2), 10);
-				bdd.executeUpdate("INSERT INTO professeur (nom, prenom, age)" + "VALUES ('" + valeurs.get(0) + "', '"
+					int age = Integer.parseInt(valeurs.get(2), 10);
+					bdd.executeUpdate("INSERT INTO professeur (nom, prenom, age)" + "VALUES ('" + valeurs.get(0) + "', '"
 							+ valeurs.get(1) + "', '" + age + "')");
 
-				int discipline = Integer.parseInt(resDis.get(0));
+					int discipline = Integer.parseInt(resDis.get(0));
 					
 					ArrayList<String> resultat = new ArrayList<String>();
 					resultat = bdd.remplirChampsRequete(
@@ -93,13 +113,12 @@ public class Database {
 							+ classe + ", " + discipline + ", " + prof + ")");
 				}
 			}
-                }
-	    }
+        }
+	    
 
 	    public   void modifierProf(  ArrayList<String> valeurs) throws SQLException // id, nom, prenom,
 	                                                                                                  // age, discipline, classe
-	    {
-                
+	    {    
 	        int id = Integer.parseInt(valeurs.get(0), 10);
 	        int age = Integer.parseInt(valeurs.get(3), 10);
                 ArrayList<String> info=new ArrayList();
@@ -272,10 +291,6 @@ public class Database {
 	            bdd.executeUpdate("UPDATE bulletin SET moyenne="+nouv_moy+" WHERE id_bulletin="+bulletin);
 	        }
 	    }
-	    
-	    public   void prof (Connexion bdd)
-	    {
-	        
-	    }
-
 }
+
+
