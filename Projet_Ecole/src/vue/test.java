@@ -15,13 +15,9 @@ public class test {
 		//new Fenetre2();
 			
 		//new modifier_supprimer_prof();
-		 val.add("Depardieu");
-		 val.add("Gérard");
-		 val.add("2");
-		 val.add("DS2");
-		 val.add("14");
-		 val.add("Ensemble correct");
+		 val.add("LEGROS");
+		 val.add("Patrick");
 
-		 bdd.ajouterEval(val);
+		 bdd.supProf(val);
 	 }
 }

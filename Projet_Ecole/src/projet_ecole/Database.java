@@ -335,6 +335,29 @@ public class Database {
 
     }
 
+    public void supProf(ArrayList<String> valeurs) throws SQLException
+    {
+        String nomProf = valeurs.get(0);
+        String prenomProf = valeurs.get(1);
+
+        ArrayList<String> attrProf = new ArrayList<>();
+        attrProf.add(nomProf);
+        attrProf.add(prenomProf);
+        int prof = 0;
+        if(!(this.isPersExiste(attrProf, prof)))
+        {
+            ArrayList<String> tabProf = bdd.remplirChampsRequete("SELECT id_professeur FROM professeur WHERE nom='"+nomProf+"' AND prenom='"+prenomProf+"' ");
+            int id_prof = Integer.parseInt(tabProf.get(0));
+
+            bdd.executeUpdate("DELETE FROM enseignement WHERE id_professeur="+id_prof);
+            bdd.executeUpdate("DELETE FROM professeur WHERE id_professeur="+id_prof);
+        }
+        else
+        {
+            System.out.println("Prof non existant");
+        }
+    }
+
     public void supEval(int id) throws SQLException {
         int moy, nouv_moy = 0;
         int detail, bulletin;
@@ -362,6 +385,21 @@ public class Database {
             System.out.println(resultat.size());
             nouv_moy = nouv_moy / resultat.size();
             bdd.executeUpdate("UPDATE bulletin SET moyenne=" + nouv_moy + " WHERE id_bulletin=" + bulletin);
+        }
+    }
+
+    public void supClasse(String classe) throws SQLException
+    {
+        ArrayList<String> tabClasse = bdd.remplirChampsRequete("SELECT id_classe FROM classe WHERE nom='"+classe+"'");
+        if(!(tabClasse.isEmpty()))
+        {
+            String id_classeStr = tabClasse.get(0);
+            int id_classe = Integer.parseInt(id_classeStr);
+            bdd.executeUpdate("DELETE FROM classe WHERE id_classe ="+id_classe);
+        }
+        else
+        {
+            System.out.println("classe inexistante");
         }
     }
 }
