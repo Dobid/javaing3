@@ -427,6 +427,7 @@ public class Database {
                     bdd.executeUpdate("DELETE FROM discipline WHERE id_discipline="+id_disc);
                 }
             }
+            
 }
 
 
