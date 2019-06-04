@@ -156,7 +156,7 @@ public class Database {
             
             
                     
-            if(!isPersExiste(info, 0) && !isClasseExist(verifClasse) && !isDiscExiste(nouv_disc))
+            if(!isPersExiste(info, 0) && !isClasseExist(verifClasse) && !isDisciplineExiste(nouv_disc))
             {
                 
                 resultat=bdd.remplirChampsRequete("SELECT id_professeur FROM professeur WHERE nom='"+nom+"'");
