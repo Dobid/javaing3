@@ -10,6 +10,31 @@ public class Database {
         bdd = new Connexion("ecole", "root", "");
     }
 
+     public ArrayList<String> afficherClasse(ArrayList<String> val) throws SQLException //td, niveau
+     {
+         if(!isClasseExist(val))
+         {
+             ArrayList<String> resultat=bdd.remplirChampsRequete("SELECT id_niveau FROM niveau WHERE nom='"+val.get(1)+"'");
+             int id_niv=Integer.parseInt(resultat.get(0));
+             resultat=bdd.remplirChampsRequete("SELECT id_classe FROM classe WHERE nom='"+val.get(0)+"' AND id_niveau="+id_niv);
+             int id_clas=Integer.parseInt(resultat.get(0));
+             resultat=bdd.remplirChampsRequete("SELECT id_eleve FROM inscription WHERE id_classe="+id_clas);
+             int []id_eleve;
+             if(!resultat.isEmpty())
+             {
+                 id_eleve=new int[resultat.size()];
+                 for(int i=0; i<resultat.size(); i++)
+                 {
+                     id_eleve[i]=Integer.parseInt(resultat.get(i));
+                 resultat.set(i, (String) bdd.remplirChampsRequete("SELECT nom, prenom, age FROM eleve WHERE id_eleve="+id_eleve[i]).get(0));
+                 }
+                     
+             }
+             return resultat;
+         }
+         return null;
+     }
+     
     public boolean isClasseExist(ArrayList<String> val) throws SQLException {
         ArrayList<String> resNiv = new ArrayList<>();
         String nomClasse = val.get(0);
@@ -100,7 +125,7 @@ public class Database {
 
     }
 
-    public void ajoutProf(ArrayList<String> valeurs) throws SQLException { //nom, prenom, age, discipline, classe
+    public void ajoutProf(ArrayList<String> valeurs) throws SQLException { //nom, prenom, age, discipline, classe, niveau
         ArrayList<String> resNiv = new ArrayList<String>();
         ArrayList<String> resCla = new ArrayList<String>();
         ArrayList<String> resDis = new ArrayList<String>();
@@ -450,6 +475,31 @@ public class Database {
         ArrayList<String>tabEleves = bdd.remplirChampsRequete("SELECT id_eleve FROM inscription WHERE id_classe="+id_classe);
         return tabEleves.size();
     }
+    public ArrayList<String> afficheBulletin(ArrayList<String> val) throws SQLException //nom, prenom
+    {
+        if(!isPersExiste(val, 1))
+        {   String nom=val.get(0);
+            String prenom=val.get(1);
+            ArrayList<String> resultat=bdd.remplirChampsRequete("SELECT id_eleve FROM eleve WHERE nom='"+nom+"' AND prenom='"+prenom+"'");
+            int id_eleve=Integer.parseInt(resultat.get(0));
+            resultat=bdd.remplirChampsRequete("SELECT id_inscription FROM inscription WHERE id_eleve="+id_eleve);
+            int id_inscription=Integer.parseInt(resultat.get(0));
+            resultat=bdd.remplirChampsRequete("SELECT id_bulletin, id_trimestre, moyenne, appreciation FROM bulletin WHERE id_inscription="+id_inscription);
+            
+            return resultat;
+        }
+        else return null;
+        
+    }
+    
+    public void modifierBulletin(ArrayList<String> val) //nom_elev, pren_elev, 
+    {
+        
+    }
+    
+    
+    
 }
+
 
 
