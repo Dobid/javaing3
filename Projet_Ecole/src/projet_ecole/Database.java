@@ -401,49 +401,42 @@ public class Database {
         }
     }
 
-    public void supEval(int id) throws SQLException {
-        int moy, nouv_moy = 0;
+    public   void supEval(ArrayList<String> nom_eval) throws SQLException
+    {
+        int moy, nouv_moy=0;
         int detail, bulletin;
         String[] notes;
-        ArrayList<String> resultat = new ArrayList<String>();
-        resultat = bdd.remplirChampsRequete("SELECT id_detailbull FROM evaluation WHERE id_eval=" + id);
-        detail = Integer.parseInt(resultat.get(0));
-        resultat = bdd.remplirChampsRequete("SELECT id_bulletin FROM detailbulletin WHERE id_detailbull=" + detail);
-        bulletin = Integer.parseInt(resultat.get(0));
-        resultat = bdd.remplirChampsRequete("SELECT moyenne FROM bulletin WHERE id_bulletin=" + bulletin);
-        moy = Integer.parseInt(resultat.get(0));
-        resultat = bdd.remplirChampsRequete("SELECT COUNT(note) FROM evaluation WHeRE id_eval=" + id);
-        int nbr_note = Integer.parseInt(resultat.get(0));
-        if (nbr_note == 1) {
-            bdd.executeUpdate("UPDATE bulletin SET moyenne=" + 0 + " WHERE id_bulletin=" + bulletin);
-            bdd.executeUpdate("DELETE FROM evaluation WHERE id_eval=" + id);
-        } else {
-            bdd.executeUpdate("DELETE FROM evaluation WHERE id_eval=" + id);
-            resultat = bdd.remplirChampsRequete("SELECT note FROM evaluation WHERE id_detailbull=" + detail);
-            notes = new String[resultat.size()];
-            for (int i = 0; i < resultat.size(); i++) {
-                notes[i] = resultat.get(i);
-                nouv_moy = nouv_moy + Integer.parseInt(notes[i]);
+        ArrayList<String> resultat =new ArrayList<String>();
+        resultat=bdd.remplirChampsRequete("SELECT id_detailbull FROM evaluation WHERE nom='"+nom_eval.get(0)+"'");
+        if(!resultat.isEmpty()){
+               detail=Integer.parseInt(resultat.get(0));
+                resultat=bdd.remplirChampsRequete("SELECT id_bulletin FROM detailbulletin WHERE id_detailbull="+detail);
+                bulletin=Integer.parseInt(resultat.get(0));
+                resultat=bdd.remplirChampsRequete("SELECT moyenne FROM bulletin WHERE id_bulletin="+bulletin);
+                moy=Integer.parseInt(resultat.get(0));
+                resultat=bdd.remplirChampsRequete("SELECT COUNT(note) FROM evaluation WHERE nom='"+nom_eval.get(0)+"'");
+                int nbr_note=Integer.parseInt(resultat.get(0));
+                if(nbr_note==1)
+                {
+                    bdd.executeUpdate("UPDATE bulletin SET moyenne="+0+" WHERE id_bulletin="+bulletin);
+                    bdd.executeUpdate("DELETE FROM evaluation WHERE nom'="+nom_eval.get(0)+"'");
+                }
+                else
+                {
+                    bdd.executeUpdate("DELETE FROM evaluation WHERE nom='"+nom_eval.get(0)+"'");
+                    resultat=bdd.remplirChampsRequete("SELECT note FROM evaluation WHERE id_detailbull="+detail);
+                     notes=new String[resultat.size()];
+                    for (int i=0; i<resultat.size(); i++)
+                    {
+                        notes[i]=resultat.get(i);
+                        nouv_moy=nouv_moy+Integer.parseInt(notes[i]);
+                    }
+                    System.out.println(resultat.size());
+                    nouv_moy=nouv_moy/resultat.size();
+                    bdd.executeUpdate("UPDATE bulletin SET moyenne="+nouv_moy+" WHERE id_bulletin="+bulletin);
+        } 
             }
-            System.out.println(resultat.size());
-            nouv_moy = nouv_moy / resultat.size();
-            bdd.executeUpdate("UPDATE bulletin SET moyenne=" + nouv_moy + " WHERE id_bulletin=" + bulletin);
-        }
-    }
-
-    public void supClasse(String classe) throws SQLException
-    {
-        ArrayList<String> tabClasse = bdd.remplirChampsRequete("SELECT id_classe FROM classe WHERE nom='"+classe+"'");
-        if(!(tabClasse.isEmpty()))
-        {
-            String id_classeStr = tabClasse.get(0);
-            int id_classe = Integer.parseInt(id_classeStr);
-            bdd.executeUpdate("DELETE FROM classe WHERE id_classe ="+id_classe);
-        }
-        else
-        {
-            System.out.println("classe inexistante");
-        }
+            
     }
 }
 
