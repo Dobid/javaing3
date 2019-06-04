@@ -17,12 +17,10 @@ public class test {
 		//new modifier_supprimer_prof();
 
 		 
-               val.add("Test");
-               val.add("Inscription");
                val.add("TD01");
-               val.add("2008");
+               val.add("ING1");
                
-               bdd.inscrireEleve(val);
-                 
+               
+               System.out.println(bdd.afficherClasse(val));
 	 }
 }
