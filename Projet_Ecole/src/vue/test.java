@@ -15,9 +15,9 @@ public class test {
 		//new Fenetre2();
 			
 		//new modifier_supprimer_prof();
-		 val.add("LEGROS");
-		 val.add("Patrick");
+		 val.add("TD01");
+		 val.add("ING1");
 
-		 bdd.supProf(val);
+		 System.out.println(bdd.numEleve(val));
 	 }
 }

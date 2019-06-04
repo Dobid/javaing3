@@ -438,6 +438,18 @@ public class Database {
             }
             
     }
+    
+    public int numEleve(ArrayList<String> val) throws SQLException
+    {
+        String nomClasse = val.get(0);
+        String niveau = val.get(1);
+        ArrayList<String> tabNiv = bdd.remplirChampsRequete("SELECT id_niveau FROM niveau WHERE nom='"+niveau+"'");
+        int id_niveau = Integer.parseInt(tabNiv.get(0));
+        ArrayList<String> tabClasse = bdd.remplirChampsRequete("SELECT id_classe FROM classe WHERE nom='"+nomClasse+"' AND id_niveau="+id_niveau);
+        int id_classe = Integer.parseInt(tabClasse.get(0));
+        ArrayList<String>tabEleves = bdd.remplirChampsRequete("SELECT id_eleve FROM inscription WHERE id_classe="+id_classe);
+        return tabEleves.size();
+    }
 }
 
 
