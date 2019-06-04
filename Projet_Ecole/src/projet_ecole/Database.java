@@ -298,7 +298,7 @@ public class Database {
 
 	    }
 
-	    public   void modifierEval(ArrayList<String> val) throws SQLException {
+	    public   void modifierEval(ArrayList<String> val) throws SQLException { //nom_eval, nouv_note, nouv_appre
 	        int nouv_eval;
                 String nouv_app;
                 if(val.get(0)!="")
@@ -348,85 +348,44 @@ public class Database {
             
                 
 	    
-	    public   void supEval(  int id) throws SQLException
+	    public   void supEval(ArrayList<String> nom_eval) throws SQLException
 	    {
 	        int moy, nouv_moy=0;
 	        int detail, bulletin;
 	        String[] notes;
 	        ArrayList<String> resultat =new ArrayList<String>();
-	        resultat=bdd.remplirChampsRequete("SELECT id_detailbull FROM evaluation WHERE id_eval="+id);
-	        detail=Integer.parseInt(resultat.get(0));
-	        resultat=bdd.remplirChampsRequete("SELECT id_bulletin FROM detailbulletin WHERE id_detailbull="+detail);
-	        bulletin=Integer.parseInt(resultat.get(0));
-	        resultat=bdd.remplirChampsRequete("SELECT moyenne FROM bulletin WHERE id_bulletin="+bulletin);
-	        moy=Integer.parseInt(resultat.get(0));
-	        resultat=bdd.remplirChampsRequete("SELECT COUNT(note) FROM evaluation WHeRE id_eval="+id);
-	        int nbr_note=Integer.parseInt(resultat.get(0));
-	        if(nbr_note==1)
-	        {
-	            bdd.executeUpdate("UPDATE bulletin SET moyenne="+0+" WHERE id_bulletin="+bulletin);
-	            bdd.executeUpdate("DELETE FROM evaluation WHERE id_eval="+id);
-	        }
-	        else
-	        {
-	            bdd.executeUpdate("DELETE FROM evaluation WHERE id_eval="+id);
-	            resultat=bdd.remplirChampsRequete("SELECT note FROM evaluation WHERE id_detailbull="+detail);
-	            notes=new String[resultat.size()];
-	            for (int i=0; i<resultat.size(); i++)
-	            {
-	                notes[i]=resultat.get(i);
-	                nouv_moy=nouv_moy+Integer.parseInt(notes[i]);
-	            }
-	            System.out.println(resultat.size());
-	            nouv_moy=nouv_moy/resultat.size();
-	            bdd.executeUpdate("UPDATE bulletin SET moyenne="+nouv_moy+" WHERE id_bulletin="+bulletin);
-	        }
-	    }
-            
-            public void supProf(ArrayList<String> val) throws SQLException //nom, prenom
-            {
-                if(!isPersExiste(val, 0))
-                {
-                    ArrayList<String> resultat=bdd.remplirChampsRequete("SELECT id_professeur FROM professeur WHERE nom='"+val.get(0)+"'");
-                    int id_prof=Integer.parseInt(resultat.get(0));
-                    bdd.executeUpdate("DELETE FROM enseignement WHERE id_professeur="+id_prof);
-                    bdd.executeUpdate("DELETE FROM professeur WHERE id_professeur="+id_prof);
-                }
-            }
-            
-            public void supClasse(ArrayList<String> val) throws SQLException //classe, niveau
-            {
-                if(!isClasseExist(val))
-                {
-                    int id_niv;
-                    int id_clas;
-                    ArrayList<String> resultat=bdd.remplirChampsRequete("SELECT id_niveau FROM niveau WHERE nom='"+val.get(1)+"'");
-                    id_niv=Integer.parseInt(resultat.get(0));
-                    resultat=bdd.remplirChampsRequete("SELECT id_classe FROM classe WHERE nom='"+val.get(0)+"' AND id_niveau="+id_niv);
-                    id_clas=Integer.parseInt(resultat.get(0));
-                    bdd.executeUpdate("DELETE FROM enseignement WHERE id_classe="+id_clas);
-                    bdd.executeUpdate("DELETE FROM classe WHERE id_classe="+id_clas);
-                }
-            }
-            
-            public void supDisc(ArrayList<String> val) throws SQLException //nom_discipline
-            {
-                int id_disc;
-                ArrayList<String> resultat= bdd.remplirChampsRequete("SELECT id_discipline FROM discipline WHERE nom='"+val.get(0)+"'");
-                if(!resultat.isEmpty())
-                {
-                    id_disc=Integer.parseInt(resultat.get(0));
-                    resultat=bdd.remplirChampsRequete("SELECT id_ens FROM enseignement WHERE id_discipline="+id_disc);
-                    if(!resultat.isEmpty())
+	        resultat=bdd.remplirChampsRequete("SELECT id_detailbull FROM evaluation WHERE nom='"+nom_eval.get(0)+"'");
+	        if(!resultat.isEmpty()){
+                   detail=Integer.parseInt(resultat.get(0));
+                    resultat=bdd.remplirChampsRequete("SELECT id_bulletin FROM detailbulletin WHERE id_detailbull="+detail);
+                    bulletin=Integer.parseInt(resultat.get(0));
+                    resultat=bdd.remplirChampsRequete("SELECT moyenne FROM bulletin WHERE id_bulletin="+bulletin);
+                    moy=Integer.parseInt(resultat.get(0));
+                    resultat=bdd.remplirChampsRequete("SELECT COUNT(note) FROM evaluation WHERE nom='"+nom_eval.get(0)+"'");
+                    int nbr_note=Integer.parseInt(resultat.get(0));
+                    if(nbr_note==1)
                     {
-                        int id_ens=Integer.parseInt(resultat.get(0));
-                        bdd.executeUpdate("DELETE FROM enseignement WHERE id_discipline="+id_disc);
-                        bdd.executeUpdate("DELETE FROM detailbulletin WHERE id_ens="+id_ens);
+                        bdd.executeUpdate("UPDATE bulletin SET moyenne="+0+" WHERE id_bulletin="+bulletin);
+                        bdd.executeUpdate("DELETE FROM evaluation WHERE nom'="+nom_eval.get(0)+"'");
                     }
-                        
-                    bdd.executeUpdate("DELETE FROM discipline WHERE id_discipline="+id_disc);
+                    else
+                    {
+                        bdd.executeUpdate("DELETE FROM evaluation WHERE nom='"+nom_eval.get(0)+"'");
+                        resultat=bdd.remplirChampsRequete("SELECT note FROM evaluation WHERE id_detailbull="+detail);
+                         notes=new String[resultat.size()];
+                        for (int i=0; i<resultat.size(); i++)
+                        {
+                            notes[i]=resultat.get(i);
+                            nouv_moy=nouv_moy+Integer.parseInt(notes[i]);
+                        }
+                        System.out.println(resultat.size());
+                        nouv_moy=nouv_moy/resultat.size();
+                        bdd.executeUpdate("UPDATE bulletin SET moyenne="+nouv_moy+" WHERE id_bulletin="+bulletin);
+	        } 
                 }
-            }
+                
+	    }
+
             
 }
 
