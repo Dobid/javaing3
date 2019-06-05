@@ -485,9 +485,24 @@ public class Database {
     public ArrayList<String> afficheDetailBulletin(ArrayList<String> val) throws SQLException //id_bulletin
     {
         int bulletin=Integer.parseInt(val.get(0));
+        String[] detailbull;
+        String[] nom_disc;
+        String [] appreciation;
+        int [] id_detailbull;
         int[] id_ens;
         int [] id_disc;
-        ArrayList<String> resultat=bdd.remplirChampsRequete("SELECT id_ens FROM detailbulletin WHERE id_bulletin="+bulletin);
+        ArrayList<String> resultat=bdd.remplirChampsRequete("SELECT id_detailbull FROM detailbulletin WHERE id_bulletin="+bulletin);
+        if(!resultat.isEmpty())
+        {
+            detailbull=new String[resultat.size()];
+            id_detailbull =new int [resultat.size()];
+            appreciation=new String[id_detailbull.length];
+            for(int i=0; i<resultat.size(); i++)
+            {
+                detailbull[i]=resultat.get(i);
+                id_detailbull[i]=Integer.parseInt(resultat.get(i));
+            } //id des bulletins, a renvoyer
+         resultat=bdd.remplirChampsRequete("SELECT id_ens FROM detailbulletin WHERE id_bulletin="+bulletin);
         if(!resultat.isEmpty())
         {
             id_ens=new int[resultat.size()];
@@ -495,14 +510,29 @@ public class Database {
             for (int i=0; i<resultat.size(); i++)
             {
                 id_ens[i]=Integer.parseInt(resultat.get(i));
-                resultat=bdd.remplirChampsRequete("SELECT id_discipline FROM enseignement WHERE id_ens="+id_ens);
+                resultat=bdd.remplirChampsRequete("SELECT id_discipline FROM enseignement WHERE id_ens="+id_ens[i]);
                 id_disc[i]=Integer.parseInt(resultat.get(0));
                 resultat=bdd.remplirChampsRequete("SELECT nom FROM discipline WHERE id_discipline="+id_disc[i]);
                 
             }
+            nom_disc=new String[resultat.size()];
+            for(int i=0; i<resultat.size(); i++)
+                nom_disc[i]=resultat.get(i);
+            for(int i=0; i<id_detailbull.length; i++)
+            {
+                resultat=bdd.remplirChampsRequete("SELECT appreciation FROM detailbulletin WHERE id_detailbull="+id_detailbull[i]);
+                appreciation[i]=resultat.get(0);
+            }
+            for(int i=0; i<id_detailbull.length; i++)
+            {
+                resultat.set(i,detailbull[i]+", "+nom_disc[i]+", "+appreciation[i] );
+            }
+            return resultat;
         }
-        return null;
-    }    
+        
+    }  return null;  
+    }
+    
     public void modifierBulletin(ArrayList<String> val) throws SQLException //id_bulletin, trimestre, nouv_appr
     {   //dans la fenetre, conserver l'id_bulletin et le renvoyer au s-p
         int id=Integer.parseInt(val.get(0));
