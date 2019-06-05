@@ -1,3 +1,4 @@
+package vue;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -28,7 +29,7 @@ public class Fenetre2 extends JFrame {
 private JPanel container = new JPanel();
 
 /// se que je veux dans top
-private JTextField jtf_ajout = new JTextField("Ajouter une donnée");
+private JTextField jtf_ajout = new JTextField("Ajouter une donnï¿½e");
 private JButton but_ajout= new JButton("Ajout");
 
 private JTextField jtf_modif = new JTextField("modifier/supprimer");

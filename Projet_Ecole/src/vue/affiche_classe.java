@@ -1,3 +1,5 @@
+package vue;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -120,16 +122,20 @@ private List<JLabel> labels = new ArrayList<>();
 	if(source ==but_classe)
 	{  ArrayList<String> classe_rech = new ArrayList<>();
 		  System.out.println("TEXT : Executer affiche classe  " );
+                  System.out.println("OK");
 		  /// faire requete sql qui retourne un string a la place de bite
 		  classe_rech.add(res_td.getText());
 		  classe_rech.add(res_classe.getText());
+                  System.out.println("a" +classe_rech.get(0));
+                  System.out.println("b" +classe_rech.get(1));
 		  try {
 			if(!(database.isClasseExist(classe_rech)))
 			{
-		classe_rech=	database.afficherClasse(classe_rech);
+                            System.out.println("OK");
+                            classe_rech=database.afficherClasse(classe_rech);
 			}
 			  // si true 
-res_classe.setText("bite");
+
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -157,7 +163,7 @@ res_classe.setText("bite");
 	//int randi=  rand.nextInt(2-0+1)+0;
 	 
 		if ( number>0 ) {
-			int count = panel.getComponentCount()/2; // on compte le nombre de composants déjà ajoutés
+			int count = panel.getComponentCount()/2; // on compte le nombre de composants dï¿½jï¿½ ajoutï¿½s
 
 			GridBagConstraints gbc = new GridBagConstraints(0, GridBagConstraints.RELATIVE, 1, 1, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(1,130,1,-124), 0, 0);
 			JLabel labele = new JLabel("default");
@@ -166,17 +172,17 @@ res_classe.setText("bite");
 				
 
 	if(i==0) {
-			 labele = new JLabel("nom:"); // une étiquette pour le champ
+			 labele = new JLabel("nom:"); // une ï¿½tiquette pour le champ
 			 
 			 def="nom du gars"+i;
 			 
 	}
 				if(i==1) {
-	 labele = new JLabel("prenom:"); // une étiquette pour le champ
+	 labele = new JLabel("prenom:"); // une ï¿½tiquette pour le champ
 	 def="prenom de son pere";}
 
 		if(i==2) {
-	 labele = new JLabel("age:"); // une étiquette pour le champ
+	 labele = new JLabel("age:"); // une ï¿½tiquette pour le champ
 	 def="age de sa grand mere";
 	 
 		}
@@ -202,7 +208,7 @@ res_classe.setText("bite");
 				panel.add(temp,gbc);
 
 			}
-			// on a modifié l'UI alors qu'elle était déjà affichée : on revalide (pour le layout) et on repeint (pour l'affichage)
+			// on a modifiï¿½ l'UI alors qu'elle ï¿½tait dï¿½jï¿½ affichï¿½e : on revalide (pour le layout) et on repeint (pour l'affichage)
 			panel.revalidate();
 			panel.repaint();
 			affiche.setEnabled(false);

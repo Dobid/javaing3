@@ -1,3 +1,5 @@
+package vue;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -128,7 +130,7 @@ private List<JLabel> labels = new ArrayList<>();
 	int randi=  rand.nextInt(2-0+1)+0;
 	  
 		if ( number>0 ) {
-			int count = panel.getComponentCount()/2; // on compte le nombre de composants déjà ajoutés
+			int count = panel.getComponentCount()/2; // on compte le nombre de composants dï¿½jï¿½ ajoutï¿½s
 
 			GridBagConstraints gbc = new GridBagConstraints(0, GridBagConstraints.RELATIVE, 1, 1, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(1,130,1,-124), 0, 0);
 			JLabel labele = new JLabel("default");
@@ -136,15 +138,15 @@ private List<JLabel> labels = new ArrayList<>();
 			for(int i=0; i<number; i++) {
 				
 if(randi==0) {
-			 labele = new JLabel("nom:"); // une étiquette pour le champ
+			 labele = new JLabel("nom:"); // une ï¿½tiquette pour le champ
 			 def="nom du garssssssssss";
 }
 if(randi==1) {
-	 labele = new JLabel("prenom:"); // une étiquette pour le champ
+	 labele = new JLabel("prenom:"); // une ï¿½tiquette pour le champ
 	 def="prenom de son pereeeeeeeeeeee";
 }
 if(randi==2) {
-	 labele = new JLabel("age:"); // une étiquette pour le champ
+	 labele = new JLabel("age:"); // une ï¿½tiquette pour le champ
 	 def="age de sa grand mereeeeeeeeeeee";
 }
 	
@@ -167,7 +169,7 @@ if(randi==2) {
 				panel.add(temp,gbc);
 
 			}
-			// on a modifié l'UI alors qu'elle était déjà affichée : on revalide (pour le layout) et on repeint (pour l'affichage)
+			// on a modifiï¿½ l'UI alors qu'elle ï¿½tait dï¿½jï¿½ affichï¿½e : on revalide (pour le layout) et on repeint (pour l'affichage)
 			panel.revalidate();
 			panel.repaint();
 			affiche.setEnabled(false);

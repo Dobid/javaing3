@@ -1,4 +1,4 @@
-
+package vue;
 
 import javax.swing.JPanel;
 

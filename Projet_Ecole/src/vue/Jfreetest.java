@@ -1,4 +1,4 @@
-
+package vue;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -23,23 +23,23 @@ public class Jfreetest extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	/** titre : Le titre du graphique affiché en haut */
+	/** titre : Le titre du graphique affichï¿½ en haut */
 	private String titre;
-	/** ordonnee : le nom de l'axe des ordonnées */
+	/** ordonnee : le nom de l'axe des ordonnï¿½es */
 	private String ordonnee;
 	/** abscisses : le nom de l'axe des abscisses */
 	private String abscisse;
-	/** valeurs : les valeurs à afficher, elles sont triées par séries et par catégories*/
+	/** valeurs : les valeurs ï¿½ afficher, elles sont triï¿½es par sï¿½ries et par catï¿½gories*/
 	private List<Float> valeurs;
-	/** series : la liste des séries */
+	/** series : la liste des sï¿½ries */
 	private List<String> series;
 	/** categories : la liste des categories */
 	private List<String> categories;
-	/** legende : booleen vrai si on affiche la légende */
+	/** legende : booleen vrai si on affiche la lï¿½gende */
 	private boolean legende;
 	/** couleurFond : la couleur du fond */
 	private Color couleurFond;
-	/** couleurBarres : les couleurs appliquées aux barres */
+	/** couleurBarres : les couleurs appliquï¿½es aux barres */
 	private Color[] couleursBarres = {Color.cyan.darker(), 
 			Color.red, Color.green, Color.cyan, Color.magenta, 
 			Color.yellow, Color.pink, Color.darkGray, Color.orange};
@@ -52,17 +52,17 @@ public class Jfreetest extends JPanel {
 	 
  @param abscisse : le nom de l'axe des abscisses
 	 
- @param ordonnee : le nom de l'axe des ordonnées
+ @param ordonnee : le nom de l'axe des ordonnï¿½es
 	 
  @param valeurs : les valeurs
 	 
  @param fond : la couleur de fond
 	 
- @param listeSeries : les séries
+ @param listeSeries : les sï¿½ries
 	 
- @param listeCategory : les catégories
+ @param listeCategory : les catï¿½gories
 	 
- @param legende : vrai si on affiche la légende
+ @param legende : vrai si on affiche la lï¿½gende
 	 
 */
 

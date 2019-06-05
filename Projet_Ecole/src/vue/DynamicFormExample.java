@@ -1,3 +1,4 @@
+package vue;
 
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
@@ -31,17 +32,17 @@ public class DynamicFormExample extends JPanel {
 	public DynamicFormExample() {
 		super(new BorderLayout());
  
-		// création des composants statiques
+		// crï¿½ation des composants statiques
 		JPanel buttonPanel = new JPanel(new BorderLayout()); // un panel pour le champ de saisie du nombre et le bouton +
-		JSpinner spinner = new JSpinner(new SpinnerNumberModel(5,0,10000,10)); // un champ pour saisir le nombre de champs à ajouter
+		JSpinner spinner = new JSpinner(new SpinnerNumberModel(5,0,10000,10)); // un champ pour saisir le nombre de champs ï¿½ ajouter
 		JButton buttonAdd = new JButton("+");
 		buttonPanel.add(spinner, BorderLayout.CENTER);
 		buttonPanel.add(buttonAdd, BorderLayout.EAST);
 		add(buttonPanel, BorderLayout.NORTH);
 		JPanel mainPanel = new JPanel(new GridBagLayout()); // un panel pour ajouter les champs dynamiquement
-		JPanel containerPanel = new JPanel(new BorderLayout()); // on a besoin d'un panel intermédiaire pour que les champs soient plaqués en haut de la fenêtre (le + simple pour le faire)
+		JPanel containerPanel = new JPanel(new BorderLayout()); // on a besoin d'un panel intermï¿½diaire pour que les champs soient plaquï¿½s en haut de la fenï¿½tre (le + simple pour le faire)
 		containerPanel.add(mainPanel, BorderLayout.NORTH);
-		add(new JScrollPane(containerPanel), BorderLayout.CENTER); // on encapsule le panel des champs dans un scrollpane pour qu'on puisse accèder aux champs qui sont dans la partie non visible de la fenêtre
+		add(new JScrollPane(containerPanel), BorderLayout.CENTER); // on encapsule le panel des champs dans un scrollpane pour qu'on puisse accï¿½der aux champs qui sont dans la partie non visible de la fenï¿½tre
  
 		buttonAdd.addActionListener(e-> addButtons(mainPanel, (Integer)spinner.getValue()));
  
@@ -49,12 +50,12 @@ public class DynamicFormExample extends JPanel {
  
 	private void addButtons(JPanel panel, int number) {
 		if ( number>0 ) {
-			int count = panel.getComponentCount()/2; // on compte le nombre de composants déjà ajoutés
+			int count = panel.getComponentCount()/2; // on compte le nombre de composants dï¿½jï¿½ ajoutï¿½s
  
 			GridBagConstraints gbc = new GridBagConstraints(0, GridBagConstraints.RELATIVE, 1, 1, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(2,4,2,4), 0, 0);
 			for(int i=0; i<number; i++) {
  
-				JLabel label = new JLabel(getLabelText(count+i)); // une étiquette pour le champ
+				JLabel label = new JLabel(getLabelText(count+i)); // une ï¿½tiquette pour le champ
 				gbc.gridx = 0;
 				gbc.weightx = 0; 
 				gbc.fill = GridBagConstraints.NONE;
@@ -68,14 +69,14 @@ public class DynamicFormExample extends JPanel {
 				panel.add(textField, gbc);
  
 			}
-			// on a modifié l'UI alors qu'elle était déjà affichée : on revalide (pour le layout) et on repeint (pour l'affichage)
+			// on a modifiï¿½ l'UI alors qu'elle ï¿½tait dï¿½jï¿½ affichï¿½e : on revalide (pour le layout) et on repeint (pour l'affichage)
 			panel.revalidate();
 			panel.repaint();
 		}
 	}
  
 	/**
-         * Cette méthode permet de récupérer toutes les valeurs saisies dans chaque champ (dans l'ordre)
+         * Cette mï¿½thode permet de rï¿½cupï¿½rer toutes les valeurs saisies dans chaque champ (dans l'ordre)
          * @return
          */
 	public List<String> getTexts() {
@@ -83,7 +84,7 @@ public class DynamicFormExample extends JPanel {
 	}
  
 	/**
-         *  méthode pour déterminer le nom du champ d'index index
+         *  mï¿½thode pour dï¿½terminer le nom du champ d'index index
          * @param index
          * @return
          */
@@ -93,15 +94,15 @@ public class DynamicFormExample extends JPanel {
  
 	public static void main(String[] args) {
  
-                // une fenêtre pour afficher l'UI
+                // une fenï¿½tre pour afficher l'UI
 		JFrame frame = new JFrame("Exemple");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
  
-                // on créé le composant et on l'ajoute à la fenêtre pour l'afficher
+                // on crï¿½ï¿½ le composant et on l'ajoute ï¿½ la fenï¿½tre pour l'afficher
 		DynamicFormExample formExample = new DynamicFormExample();
 		frame.add(formExample);
  
-		// pour démo, on affiche les valeurs saisies dans les champs à la fermeture de la fenêtre
+		// pour dï¿½mo, on affiche les valeurs saisies dans les champs ï¿½ la fermeture de la fenï¿½tre
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) { 
@@ -112,7 +113,7 @@ public class DynamicFormExample extends JPanel {
 			}
 		});
  
-                // on affiche la fenêtre
+                // on affiche la fenï¿½tre
 		frame.setSize(400, 600);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);

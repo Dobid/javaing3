@@ -487,14 +487,40 @@ public class Database {
             int id_inscription=Integer.parseInt(resultat.get(0));
             resultat=bdd.remplirChampsRequete("SELECT id_bulletin, id_trimestre, moyenne, appreciation FROM bulletin WHERE id_inscription="+id_inscription);
             
-            return resultat;
+            return resultat;    //retourne id_bulletin, trimestre, moyenne et appreciation
         }
         else return null;
         
     }
     
-    public void modifierBulletin(ArrayList<String> val) //nom_elev, pren_elev, 
+    
+    public ArrayList<String> afficheDetailBulletin(ArrayList<String> val) throws SQLException //id_bulletin
     {
+        int bulletin=Integer.parseInt(val.get(0));
+        int[] id_ens;
+        int [] id_disc;
+        ArrayList<String> resultat=bdd.remplirChampsRequete("SELECT id_ens FROM detailbulletin WHERE id_bulletin="+bulletin);
+        if(!resultat.isEmpty())
+        {
+            id_ens=new int[resultat.size()];
+            id_disc=new int[resultat.size()];
+            for (int i=0; i<resultat.size(); i++)
+            {
+                id_ens[i]=Integer.parseInt(resultat.get(i));
+                resultat=bdd.remplirChampsRequete("SELECT id_discipline FROM enseignement WHERE id_ens="+id_ens);
+                id_disc[i]=Integer.parseInt(resultat.get(0));
+                resultat=bdd.remplirChampsRequete("SELECT nom FROM discipline WHERE id_discipline="+id_disc[i]);
+                
+            }
+        }
+        return null;
+    }    
+    public void modifierBulletin(ArrayList<String> val) throws SQLException //id_bulletin, trimestre, nouv_appr
+    {   //dans la fenetre, conserver l'id_bulletin et le renvoyer au s-p
+        int id=Integer.parseInt(val.get(0));
+        int trimestre=Integer.parseInt(val.get(1));
+        String nouv_appr=val.get(2);
+        bdd.executeUpdate("UPDATE bulletin SET appreciation='"+nouv_appr+"' WHERE id_bulletin="+id);
         
     }
     
