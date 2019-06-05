@@ -1,8 +1,11 @@
 package vue;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -20,7 +23,7 @@ import java.awt.event.ActionListener;
  
 public class Fenetre extends JFrame {
   private JPanel container = new JPanel();
-  private JLabel label = new JLabel("ajout");
+  private JLabel label = new JLabel("ajout",JLabel.CENTER);
   
   private JButton but_eleve= new JButton("Ajout eleve");
   private JButton but_classe= new JButton("Ajout classe");
@@ -38,9 +41,12 @@ public class Fenetre extends JFrame {
     container.setLayout(null);
 
     JPanel top = new JPanel();
-    top.setLayout(new FlowLayout());
+    top.setLayout(new GridLayout(6,1));
     
+    Font police = new Font("Arial", Font.BOLD, 25);
     
+    label.setFont(police);
+    label.setForeground(Color.BLUE);
     /// boutton de top
     but_eleve.addActionListener(new BoutonListener());
     but_classe.addActionListener(new BoutonListener());
@@ -57,7 +63,8 @@ public class Fenetre extends JFrame {
     top.add(but_disci);
     top.add(but_eval);
   
-   top.setBounds(20, 78, 100, 200);
+   top.setBounds(0, 0, 600, 600);
+ 
     container.add(top);
     
     
@@ -88,7 +95,12 @@ public class Fenetre extends JFrame {
 	if(source ==but_classe)
 	{
 		  System.out.println("TEXT : Executer fenetre classe " );
-		  new ajout_classe();
+		  try {
+			new ajout_classe();
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 	if(source ==but_prof)
 	{
@@ -104,13 +116,23 @@ public class Fenetre extends JFrame {
 	if(source ==but_disci)
 	{
 		  System.out.println("TEXT : Executer fenetre disci" );
-		new ajout_discipline();
+		try {
+			new ajout_discipline();
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 	
 	if(source ==but_eval)
 	{
 		  System.out.println("TEXT : Executer fenetre disci" );
-		new ajout_evaluation();
+		try {
+			new ajout_evaluation();
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 	    }
 	  }
