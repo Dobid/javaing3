@@ -542,6 +542,12 @@ public class Database {
         
     }
     
+    public void modifierDetailBulletin(ArrayList<String> val) throws SQLException   //id_detailbull, nouvelle appreciation
+    {
+        int detailbull=Integer.parseInt(val.get(0));
+        bdd.executeUpdate("UPDATE detailbulletin SET appreciation='"+val.get(1)+"' WHERE id_detailbull="+detailbull);
+    }
+    
     
     
 }
