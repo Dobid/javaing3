@@ -1,4 +1,6 @@
 
+
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -11,19 +13,23 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-
+import projet_ecole.Database;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
  
-public class modifier_supprimer_prof extends JFrame {
+public class modifier_supprimer_prof_info extends JFrame {
+	Database bdd;
+	
   private JPanel container = new JPanel();
   private JLabel label = new JLabel("modifier supprimer un prof ");
   
   private JTextField prof =new JTextField("rentrer prof");
- private JTextField info_prof =new JTextField("prof existe");
+ private JTextField info_prof =new JTextField("info prof");
   private JButton but_prof= new JButton(" prof");
   
   
@@ -31,14 +37,23 @@ public class modifier_supprimer_prof extends JFrame {
   
   
   private JLabel modif = new JLabel("info a modifier");
-  private JLabel supp = new JLabel("supprimer prof");
-  private JButton but_classe= new JButton("classe");
-  private JButton but_discipline= new JButton("discipline");
-  private JButton but_supp= new JButton("supprimer");
-  private JButton but_info= new JButton("info");
+  private JTextField nom =new JTextField("nom");
+  private JTextField prenom =new JTextField("prenom");
+  private JTextField age =new JTextField("age");
+  private JTextField id =new JTextField("id");
+  
 
+  private JButton but_modifier= new JButton("modifer");
+  
 
-  public modifier_supprimer_prof(){
+  public modifier_supprimer_prof_info() throws ClassNotFoundException{
+	  try {
+		  bdd=new Database();
+  } catch(SQLException e)
+	{
+		System.out.println(e.getMessage());
+	}
+	  
     this.setTitle("fentreloliloio");
     this.setSize(600, 600);
  //   this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,47 +62,49 @@ public class modifier_supprimer_prof extends JFrame {
     container.setLayout(null);
 
     JPanel top = new JPanel();
-    JPanel top2 = new JPanel();
+
     top.setLayout(new FlowLayout());
-    top2.setLayout(new FlowLayout());
+  
     
     
     /// boutton de top
 
-    but_classe.addActionListener(new BoutonListener());
+    but_modifier.addActionListener(new BoutonListener());
 
-    but_discipline.addActionListener(new BoutonListener());
-    but_info.addActionListener(new BoutonListener());
 
 
     
      //// boutton de top2
     but_prof.addActionListener(new BoutonListener());
-    but_supp.addActionListener(new BoutonListener());
-	but_supp.setEnabled(false);
+
     info_prof.setEnabled(false);
+    nom.setEnabled(false);
+   prenom.setEnabled(false);
+    age.setEnabled(false);
+    id.setEnabled(false);
+    but_modifier.setEnabled(false);
 	
     top.add(label);
+    top.add(prof);
+    top.add(info_prof);
+    top.add(but_prof);
     top.add(modif);
  
     
-    top.add(but_classe);
-    top.add(but_discipline);
-    top.add(but_info);
     
-    
-  top2.add(supp);
-  top2.add(prof);
-  top2.add(but_prof);
-  top2.add(info_prof);
-  top2.add(but_supp);
+    top.add(nom);
+    top.add(prenom);
+    top.add(age);
+    top.add(id);
+    top.add(but_modifier);
+  
+
     
   
    top.setBounds(20, 78, 160, 200);
-   top2.setBounds(300, 78, 90, 200);
-   
+
     container.add(top);  
-    container.add(top2);
+ 
     
     
     
@@ -106,49 +123,45 @@ public class modifier_supprimer_prof extends JFrame {
 	 
 	    		if(source ==but_prof)
 	    		{
-	    			/// verification prof existe
+	    			/// verification eleve existe
 	    	
 	    			info_prof.setBackground(Color.GREEN);
 	    			
 	    			
-	    			/// si prof existe
+	    			/// si eleve existe
 	    			info_prof.setText(prof.getText());
-	    			but_supp.setEnabled(true);
+	    			but_modifier.setEnabled(true);
+	    			 nom.setEnabled(true);
+	    			   prenom.setEnabled(true);
+	    			    age.setEnabled(true);
+	    			    id.setEnabled(true);
 	    			
 	    		}	    	 
-	    	 if(source== but_supp)
+	    	 if(source== but_modifier)
 	    	 {
 	    		 info_prof.getText();
-	    		 ///requete sql suppresion prof avec info prof
+	    		 ///requete sql 
+	    		 
+	    		 
+	    		 ArrayList<String> val=new ArrayList<String>();
+	    		  val.add(id.getText());
+				  val.add(nom.getText());
+				  val.add(prenom.getText());
+				  val.add(age.getText());
+				
+		
+				  try {
+					bdd.modifierProf(val);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+	    	
 	    		 prof.setText("");
-	    		 info_prof.setText("");
-	    			info_prof.setBackground(Color.WHITE);
-	    			but_supp.setEnabled(false);
+	    	
 	    	 }
 	    	 
-	if(source ==but_classe)
-	{
-		  System.out.println("TEXT : Executer classe  " );
-	
-	
-	}
-	if(source ==but_discipline)
-	{
-		  System.out.println("TEXT : Executer discilienne  " );
-	
 
-	}
-	if(source ==but_info)
-	{
-		  try {
-			new modifier_supprimer_prof_info();
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	
-
-	}
 	
 
 	    }

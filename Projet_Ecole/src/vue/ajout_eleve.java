@@ -1,8 +1,9 @@
-package vue;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -14,7 +15,6 @@ import javax.swing.JTextField;
 import projet_ecole.Database;
 
 import java.awt.event.ItemEvent;
-
 import java.awt.event.ItemListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class ajout_eleve extends JFrame{
 	Database bdd;
 	
 	 private JPanel container = new JPanel();
-	  private JLabel label = new JLabel("ajout       ");
+	  private JLabel label = new JLabel("ajout",JLabel.CENTER);
 	  private JTextField nom= new JTextField("nom");
 	  private JTextField prenom= new JTextField("prenom");
 	  private JTextField age= new JTextField("age");
@@ -52,13 +52,19 @@ public class ajout_eleve extends JFrame{
 	    container.setLayout(null);
 
 	    JPanel top = new JPanel();
-	    top.setLayout(new FlowLayout());
+	    top.setLayout(new GridLayout(5,1));
 	    
 	    
 	    /// boutton de top
 	    but_valider.addActionListener(new BoutonListener());
 	  
-	     
+	    Font police = new Font("Arial", Font.BOLD, 25);
+	    label.setFont(police);
+	    label.setForeground(Color.BLUE);
+	    nom.setFont(police);
+	    prenom.setFont(police);
+	    age.setFont(police);
+	
 	    
 	    
 	    top.add(label);
@@ -68,7 +74,7 @@ public class ajout_eleve extends JFrame{
 	    top.add(but_valider);
 	  
 	  
-	   top.setBounds(20, 78, 70, 200);
+	   top.setBounds(0, 0, 500, 500);
 	    container.add(top);
 	    
 	    

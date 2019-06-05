@@ -475,6 +475,7 @@ public class Database {
         ArrayList<String>tabEleves = bdd.remplirChampsRequete("SELECT id_eleve FROM inscription WHERE id_classe="+id_classe);
         return tabEleves.size();
     }
+    
     public ArrayList<String> afficheBulletin(ArrayList<String> val) throws SQLException //nom, prenom
     {
         if(!isPersExiste(val, 1))

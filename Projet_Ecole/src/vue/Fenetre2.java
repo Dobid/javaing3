@@ -1,9 +1,11 @@
-package vue;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
+
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,7 +28,7 @@ public class Fenetre2 extends JFrame {
 private JPanel container = new JPanel();
 
 /// se que je veux dans top
-private JTextField jtf_ajout = new JTextField("Ajouter une donnï¿½e");
+private JTextField jtf_ajout = new JTextField("Ajouter une donnée");
 private JButton but_ajout= new JButton("Ajout");
 
 private JTextField jtf_modif = new JTextField("modifier/supprimer");
@@ -41,7 +43,7 @@ private JButton but_Stat= new JButton("Stat");
 
 
 
-private JLabel label = new JLabel("Action possible");
+private JLabel label = new JLabel("Action possible",JLabel.CENTER);
 
 private JLabel toto= new JLabel(jtf_ajout.getText());
 private JLabel label2 = new JLabel("Une ComboBox");
@@ -50,8 +52,8 @@ private JComboBox combo = new JComboBox();
 
 public Fenetre2(){
 	
-
-	
+///but_Stat.setBounds(45, 30, 500, 500);
+	//but_Stat.setBackground(Color.red);
 	
   this.setTitle("Animation");
   this.setSize(900, 900);
@@ -61,17 +63,20 @@ public Fenetre2(){
   container.setBackground(Color.white);
   container.setLayout(null);
   JPanel top = new JPanel();
-  top.setLayout(new FlowLayout());
+  top.setLayout(new GridLayout(5,1));
   
   
   JPanel topa = new JPanel();
   JPanel topi = new JPanel();
  
   
-  Font police = new Font("Arial", Font.BOLD, 14);
+  Font police = new Font("Arial", Font.BOLD, 25);
   jtf_ajout.setFont(police);
   jtf_ajout.setPreferredSize(new Dimension(150, 30));
   jtf_ajout.setForeground(Color.BLUE);
+ 
+  label.setFont(police);
+  label.setForeground(Color.BLUE);
   
   
   String[] tab = {"Option 1", "5", "Option 3", "Option 4"};
@@ -93,6 +98,7 @@ public Fenetre2(){
  
 
   top.add(label);
+
  // top.add(jtf_ajout);
   top.add(but_ajout);
  // top.add(jtf_modif);
@@ -111,13 +117,13 @@ public Fenetre2(){
   topa.add(combo);
   
 
-  top.setBounds(200, 300,100,150);
+  top.setBounds(0, 0,900,900);
 //  topi.setBounds(40, 600,200,200);
 //  topa.setBounds(40, 20,100,100);
   
-  container.add(topi);
+ // container.add(topi);
   container.add(top);
- container.add(topa);
+ //container.add(topa);
  
 
 

@@ -1,4 +1,4 @@
-package vue;
+
 
 
 import java.awt.BorderLayout;
@@ -128,7 +128,12 @@ public class modifier_supprimer_discipline extends JFrame {
 	{
 		  System.out.println("TEXT : Executer bulletin  " );
 	
-	new modifier_supprimer_eleve_evaluation();
+	try {
+		new modifier_supprimer_eleve_evaluation();
+	} catch (ClassNotFoundException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
 	}
 	
 	

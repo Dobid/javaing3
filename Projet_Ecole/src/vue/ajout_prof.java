@@ -1,8 +1,9 @@
-package vue;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -25,7 +26,7 @@ public class ajout_prof extends JFrame{
 	Database bdd;
 	
 	 private JPanel container = new JPanel();
-	  private JLabel label = new JLabel("ajout       ");
+	  private JLabel label = new JLabel("ajout",JLabel.CENTER);
 	  private JTextField nom= new JTextField("nom");
 	  private JTextField prenom= new JTextField("prenom");
 	  private JTextField age= new JTextField("age");
@@ -54,7 +55,18 @@ public class ajout_prof extends JFrame{
 	    container.setLayout(null);
 
 	    JPanel top = new JPanel();
-	    top.setLayout(new FlowLayout());
+	    top.setLayout(new GridLayout(8,1));
+	    
+	    Font police = new Font("Arial", Font.BOLD, 25);
+	    label.setFont(police);
+	    label.setForeground(Color.BLUE);
+	    nom.setFont(police);
+	    prenom.setFont(police);
+	    age.setFont(police);
+	    enseigne.setFont(police);
+	    classe.setFont(police);
+	    niveau.setFont(police);
+	    
 	    
 	    
 	    /// boutton de top
@@ -73,7 +85,7 @@ public class ajout_prof extends JFrame{
 	    top.add(but_valider);
 	  
 	  
-	   top.setBounds(20, 78, 90, 200);
+	   top.setBounds(0, 0, 500, 500);
 	    container.add(top);
 	    
 	    
