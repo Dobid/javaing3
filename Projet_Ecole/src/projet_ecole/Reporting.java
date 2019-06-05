@@ -26,6 +26,9 @@ public class Reporting {
     }
     
     
-    
+    public static void medianeClasse(Connexion bdd, ArrayList<String> valeurs)
+    {
+        
+    }
     
 }
