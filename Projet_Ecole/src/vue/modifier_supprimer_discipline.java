@@ -1,4 +1,4 @@
-package vue;
+
 
 
 import java.awt.BorderLayout;
