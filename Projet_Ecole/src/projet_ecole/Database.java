@@ -91,11 +91,9 @@ public class Database {
             modifierEleve(valeurs);
     }
 
-    public void ajoutEleve(ArrayList<String> valeurs) throws SQLException {
-        int age = Integer.parseInt(valeurs.get(2), 10);
-        if (isPersExiste(valeurs, 1))
-            bdd.executeUpdate("INSERT INTO eleve (nom, prenom, age)" + "VALUES ('" + valeurs.get(0) + "', '"
-                    + valeurs.get(1) + "', '" + age + "')");
+    public void ajoutEleve(ArrayList<String> valeurs) throws SQLException { //nom, prenom, age, td, niveau
+        
+        
     }
 
     public void ajoutNiveau(ArrayList<String> valeurs) throws SQLException {
