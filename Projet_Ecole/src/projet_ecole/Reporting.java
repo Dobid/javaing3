@@ -197,6 +197,7 @@ public abstract class Reporting {
         return med;
     }
     
+<<<<<<< HEAD
     public static int medianeDiscipline(Database data, ArrayList<String> val) throws SQLException //discipline
     {
         double med=0.0;
@@ -257,6 +258,9 @@ public abstract class Reporting {
         }
         return 0;
     }
+=======
+    
+>>>>>>> parent of adb6900... ajoutEleve+detailBull
     
     
     
