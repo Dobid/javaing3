@@ -136,6 +136,67 @@ public abstract class Reporting {
         return null;
     }
     
+    public static double medianeClasse(Database data, ArrayList<String> val) throws SQLException //nom_td, nom_classe, trimestre
+    {
+        String td=val.get(0);
+        int id_clas;
+        int id_niv;
+        int [] id_insc;
+        int indice;
+        int indice_bis;
+        double med=0.0;
+        String niveau=val.get(1);
+        int trimestre=Integer.parseInt(val.get(2));
+        ArrayList<String> moy=new ArrayList(); //liste des moyenne d'une classe, à trier 
+        int nb_eleve;
+        ArrayList<String> bulletin;
+        
+        ArrayList<String> resultat=data.bdd.remplirChampsRequete("SELECT id_niveau FROM niveau WHERE nom='"+niveau+"'");
+        if(!resultat.isEmpty())
+        {
+            id_niv=Integer.parseInt(resultat.get(0));
+            resultat=data.bdd.remplirChampsRequete("SELECT id_classe FROM classe WHERE nom='"+td+"' AND id_niveau="+id_niv);
+            if(!resultat.isEmpty())
+            {
+                id_clas=Integer.parseInt(resultat.get(0));
+                resultat=data.bdd.remplirChampsRequete("SELECT id_inscription FROM inscription WHERE id_classe="+id_clas);
+                if(!resultat.isEmpty())
+                {
+                    id_insc=new int[resultat.size()];
+                    nb_eleve=resultat.size();
+                    
+                    for (int i=0; i<resultat.size(); i++)
+                    {
+                        id_insc[i]=Integer.parseInt(resultat.get(i));
+                        bulletin=data.bdd.remplirChampsRequete("SELECT moyenne FROM bulletin WHERE id_inscription="+id_insc[i]+" AND id_trimestre="+trimestre);
+                        moy.add((bulletin.get(0)));
+                    }
+                   Collections.sort(moy);
+                   ArrayList tri=new ArrayList();
+                    for(int i=0; i<moy.size(); i++)
+                        tri.add(Integer.parseInt(moy.get(i)));
+                    Collections.sort(tri);
+                   if(nb_eleve%2==1)
+                   {
+                      indice= (nb_eleve+1)/2;
+                      med= (int) tri.get(indice-1);
+                   }
+                   else
+                   {
+                       indice=nb_eleve/2;
+                       med= (int) tri.get(indice-1);
+                       indice_bis=(nb_eleve-1)/2;
+                       med=(med+ (int) tri.get(indice_bis))/2;
+                   }
+                      
+                    
+                }
+            }
+             
+        }
+        return med;
+    }
+    
     public static int medianeDiscipline(Database data, ArrayList<String> val) throws SQLException //discipline
     {
         double med=0.0;
@@ -196,5 +257,7 @@ public abstract class Reporting {
         }
         return 0;
     }
+    
+    
     
 }
