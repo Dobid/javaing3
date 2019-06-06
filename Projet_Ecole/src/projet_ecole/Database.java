@@ -246,6 +246,9 @@ public class Database {
         String noteStr = valeurs.get(5);
         int note = Integer.parseInt(noteStr);
         String appreciation = valeurs.get(6);
+        
+        int[] listenote;
+        int nb_note=0;
 
         ArrayList<String> attrEleve = new ArrayList<>();
         attrEleve.add(nomEleve);
@@ -276,7 +279,7 @@ public class Database {
                 ArrayList<String> tabDetailBulletin = bdd.remplirChampsRequete("SELECT id_detailbull FROM detailbulletin WHERE id_bulletin="+id_bulletin+" And id_ens="+id_ens);
                 int id_detailbull = Integer.parseInt(tabDetailBulletin.get(0));
 
-                ArrayList<String> tabEval = bdd.remplirChampsRequete("SELECT id_eval FROM evaluation WHERE nom='"+nomEval+"'");
+                ArrayList<String> tabEval = bdd.remplirChampsRequete("SELECT id_eval FROM evaluation WHERE nom='"+nomEval+"' AND id_detailbull="+id_detailbull);
 
                 if(tabEval.isEmpty())
                 {
@@ -286,6 +289,28 @@ public class Database {
                 {
                     System.out.println("Note portant ce nom déjà existante");
                 }
+                
+                ArrayList<String> details=bdd.remplirChampsRequete("SELECT id_detailbull FROM detailbulletin WHERE id_bulletin="+id_bulletin);
+                int [] listeDetail=new int[details.size()];
+                listenote=new int[details.size()*3];
+                ArrayList<String> tabNote;
+                for(int i=0; i<details.size(); i++)
+                {
+                    listeDetail[i]=Integer.parseInt(details.get(i));
+                    tabNote=bdd.remplirChampsRequete("SELECT note FROM evaluation WHERE id_detailbull="+listeDetail[i]);
+                    if(!tabNote.isEmpty())
+                    {
+                        listenote[i]=Integer.parseInt(tabNote.get(0));
+                        nb_note++;
+                    }
+                }
+                double moy=0;
+                for(int i=0; i<listenote.length; i++)
+                    moy=moy+listenote[i];
+                moy=moy/nb_note;
+                System.out.print(moy);
+                bdd.executeUpdate("UPDATE bulletin SET moyenne="+moy+ " WHERE id_bulletin="+id_bulletin);
+                
             }
         }
         else
