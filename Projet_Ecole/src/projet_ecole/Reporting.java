@@ -136,6 +136,7 @@ public abstract class Reporting {
         return null;
     }
     
+<<<<<<< HEAD
     public static double medianeClasse(Database data, ArrayList<String> val) throws SQLException //nom_td, nom_classe, trimestre
     {
         String td=val.get(0);
@@ -196,6 +197,9 @@ public abstract class Reporting {
         }
         return med;
     }
+=======
+    
+>>>>>>> parent of adb6900... ajoutEleve+detailBull
     
 <<<<<<< HEAD
     public static int medianeDiscipline(Database data, ArrayList<String> val) throws SQLException //discipline
