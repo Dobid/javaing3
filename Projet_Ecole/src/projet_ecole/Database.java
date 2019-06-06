@@ -93,12 +93,9 @@ public class Database {
 
     public void ajoutEleve(ArrayList<String> valeurs) throws SQLException {
         int age = Integer.parseInt(valeurs.get(2), 10);
-
-        if (isPersExiste(valeurs, 1)) {
+        if (isPersExiste(valeurs, 1))
             bdd.executeUpdate("INSERT INTO eleve (nom, prenom, age)" + "VALUES ('" + valeurs.get(0) + "', '"
                     + valeurs.get(1) + "', '" + age + "')");
-            inscrireEleve(valeurs);
-        }
     }
 
     public void ajoutNiveau(ArrayList<String> valeurs) throws SQLException {
@@ -268,20 +265,6 @@ public class Database {
             if(tabEval.isEmpty())
             {
                 bdd.executeUpdate("INSERT INTO evaluation (id_detailbull, nom, note, appreciation)"+"VALUES('"+id_detailbull+"','"+nomEval+"',"+note+",'"+appreciation+"')");
-                ArrayList<String> resultat;
-                resultat = bdd.remplirChampsRequete("SELECT COUNT(note) FROM evaluation WHERE nom='" + nomEval + "'");
-                int nbr_note = Integer.parseInt(resultat.get(0));
-                resultat = bdd.remplirChampsRequete("SELECT note FROM evaluation WHERE id_detailbull=" + id_detailbull);
-                
-                String[] notes;
-                int moy = 0;
-                notes = new String[resultat.size()];
-                for (int i = 0; i < resultat.size(); i++) {
-                    notes[i] = resultat.get(i);
-                    moy = moy + Integer.parseInt(notes[i]);
-                }
-                moy = moy / resultat.size();
-                bdd.executeUpdate("UPDATE bulletin SET moyenne=" + moy + " WHERE id_bulletin=" + id_bulletin);
             }
             else
             {
@@ -302,9 +285,9 @@ public class Database {
         System.out.println(nom);
         String prenom = valeurs.get(1);
         System.out.println(prenom);
-        String nomClasse = valeurs.get(3);
+        String nomClasse = valeurs.get(2);
         System.out.println(nomClasse);
-        String niveauStr = valeurs.get(4);
+        String niveauStr = valeurs.get(3);
         System.out.println(niveauStr);
 
         ArrayList<String> attrClasseNiv = new ArrayList<>();
@@ -320,13 +303,13 @@ public class Database {
             String sqlQuery = "SELECT id_eleve FROM eleve WHERE nom='" + nom + "'AND prenom='" + prenom + "'";
             result = bdd.remplirChampsRequete(sqlQuery);
             int id_eleve = Integer.parseInt(result.get(0));
-            System.out.println("id_eleve"+id_eleve);
+            System.out.println(id_eleve);
 
             sqlQuery = "SELECT id_classe FROM classe WHERE nom='" + nomClasse + "'";
             result = bdd.remplirChampsRequete(sqlQuery);
             int id_classe = Integer.parseInt(result.get(0));
-            System.out.println("id_classe"+id_classe);
-            
+            System.out.println(id_classe);
+
             sqlQuery = "INSERT INTO inscription (id_classe, id_eleve)" + "VALUES ('" + id_classe + "', '" + id_eleve + "')";
             bdd.executeUpdate(sqlQuery);
 
@@ -344,20 +327,6 @@ public class Database {
             sqlQuery = "INSERT INTO bulletin (id_trimestre, id_inscription, moyenne)" + "VALUES (3, '" + id_inscription
                     + "', 0)";
             bdd.executeUpdate(sqlQuery);
-            
-            ArrayList<String> tabBull = bdd.remplirChampsRequete("SELECT id_bulletin FROM bulletin WHERE id_inscription="+id_inscription);
-            int nb_bull_par_eleve = tabBull.size();
-            ArrayList<String> tabEns = bdd.remplirChampsRequete("SELECT id_ens FROM enseignement WHERE id_classe ="+id_classe);
-            int nb_ens_par_classe = tabEns.size();
-            System.out.println("Nombre de bulletins par élève :"+nb_bull_par_eleve);
-            System.out.println("Nombre d'enseignements pour une classe:" +nb_ens_par_classe);
-            for(int i=0; i<nb_bull_par_eleve; i++)
-            {
-                for(int j=0; j<nb_ens_par_classe; j++)
-                {
-                    bdd.executeUpdate("INSERT INTO detailbulletin (id_bulletin, id_ens)" + "VALUES('"+tabBull.get(i)+"', '"+tabEns.get(j)+"')");
-                }  
-            }
         } else {
             System.out.println("Classe Inexistante ou Eleve Inexistant");
         }
@@ -495,18 +464,6 @@ public class Database {
             
     }
     
-    public int numEleve(ArrayList<String> val) throws SQLException
-    {
-        String nomClasse = val.get(0);
-        String niveau = val.get(1);
-        ArrayList<String> tabNiv = bdd.remplirChampsRequete("SELECT id_niveau FROM niveau WHERE nom='"+niveau+"'");
-        int id_niveau = Integer.parseInt(tabNiv.get(0));
-        ArrayList<String> tabClasse = bdd.remplirChampsRequete("SELECT id_classe FROM classe WHERE nom='"+nomClasse+"' AND id_niveau="+id_niveau);
-        int id_classe = Integer.parseInt(tabClasse.get(0));
-        ArrayList<String>tabEleves = bdd.remplirChampsRequete("SELECT id_eleve FROM inscription WHERE id_classe="+id_classe);
-        return tabEleves.size();
-    }
-    
     public ArrayList<String> afficheBulletin(ArrayList<String> val) throws SQLException //nom, prenom
     {
         if(!isPersExiste(val, 1))
@@ -528,9 +485,24 @@ public class Database {
     public ArrayList<String> afficheDetailBulletin(ArrayList<String> val) throws SQLException //id_bulletin
     {
         int bulletin=Integer.parseInt(val.get(0));
+        String[] detailbull;
+        String[] nom_disc;
+        String [] appreciation;
+        int [] id_detailbull;
         int[] id_ens;
         int [] id_disc;
-        ArrayList<String> resultat=bdd.remplirChampsRequete("SELECT id_ens FROM detailbulletin WHERE id_bulletin="+bulletin);
+        ArrayList<String> resultat=bdd.remplirChampsRequete("SELECT id_detailbull FROM detailbulletin WHERE id_bulletin="+bulletin);
+        if(!resultat.isEmpty())
+        {
+            detailbull=new String[resultat.size()];
+            id_detailbull =new int [resultat.size()];
+            appreciation=new String[id_detailbull.length];
+            for(int i=0; i<resultat.size(); i++)
+            {
+                detailbull[i]=resultat.get(i);
+                id_detailbull[i]=Integer.parseInt(resultat.get(i));
+            } //id des bulletins, a renvoyer
+         resultat=bdd.remplirChampsRequete("SELECT id_ens FROM detailbulletin WHERE id_bulletin="+bulletin);
         if(!resultat.isEmpty())
         {
             id_ens=new int[resultat.size()];
@@ -538,14 +510,29 @@ public class Database {
             for (int i=0; i<resultat.size(); i++)
             {
                 id_ens[i]=Integer.parseInt(resultat.get(i));
-                resultat=bdd.remplirChampsRequete("SELECT id_discipline FROM enseignement WHERE id_ens="+id_ens);
+                resultat=bdd.remplirChampsRequete("SELECT id_discipline FROM enseignement WHERE id_ens="+id_ens[i]);
                 id_disc[i]=Integer.parseInt(resultat.get(0));
                 resultat=bdd.remplirChampsRequete("SELECT nom FROM discipline WHERE id_discipline="+id_disc[i]);
                 
             }
+            nom_disc=new String[resultat.size()];
+            for(int i=0; i<resultat.size(); i++)
+                nom_disc[i]=resultat.get(i);
+            for(int i=0; i<id_detailbull.length; i++)
+            {
+                resultat=bdd.remplirChampsRequete("SELECT appreciation FROM detailbulletin WHERE id_detailbull="+id_detailbull[i]);
+                appreciation[i]=resultat.get(0);
+            }
+            for(int i=0; i<id_detailbull.length; i++)
+            {
+                resultat.set(i,detailbull[i]+", "+nom_disc[i]+", "+appreciation[i] );
+            }
+            return resultat;
         }
-        return null;
-    }    
+        
+    }  return null;  
+    }
+    
     public void modifierBulletin(ArrayList<String> val) throws SQLException //id_bulletin, trimestre, nouv_appr
     {   //dans la fenetre, conserver l'id_bulletin et le renvoyer au s-p
         int id=Integer.parseInt(val.get(0));
@@ -554,6 +541,13 @@ public class Database {
         bdd.executeUpdate("UPDATE bulletin SET appreciation='"+nouv_appr+"' WHERE id_bulletin="+id);
         
     }
+    
+    public void modifierDetailBulletin(ArrayList<String> val) throws SQLException   //id_detailbull, nouvelle appreciation
+    {
+        int detailbull=Integer.parseInt(val.get(0));
+        bdd.executeUpdate("UPDATE detailbulletin SET appreciation='"+val.get(1)+"' WHERE id_detailbull="+detailbull);
+    }
+    
     
     
     
