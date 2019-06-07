@@ -789,6 +789,12 @@ public class Database {
         bdd.executeUpdate("UPDATE detailbulletin SET appreciation='"+val.get(1)+"' WHERE id_detailbull="+detailbull);
     }
     
+    /**
+     * méthode pour afficher les notes d'un élève
+     * @param val : ArrayList contenant les infos de l'élève dont on veut les notes
+     * @return ArrayList avec les notes de l'élève dedans
+     * @throws SQLException 
+     */
     public ArrayList<String> afficherNote(ArrayList<String> val) throws SQLException //nom, prenom
     {
         String nom=val.get(0);
