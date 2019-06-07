@@ -387,6 +387,21 @@ public class Database {
                     System.out.println("Note portant ce nom déjà existante");
                 }
                 
+                int [] notes_disc;
+                double moy_disc=0;
+                int nb_note_disc=0;
+                ArrayList<String> note_matiere=bdd.remplirChampsRequete("SELECT note FROM evaluation WHERE id_detailbull="+id_detailbull);
+                notes_disc=new int[note_matiere.size()];
+                for(int i=0; i<note_matiere.size(); i++)
+                {
+                    notes_disc[i]=Integer.parseInt(note_matiere.get(i));
+                    moy_disc=moy_disc+notes_disc[i];
+                    nb_note_disc++;
+                }
+                moy_disc=moy_disc/nb_note_disc;
+                bdd.executeUpdate("UPDATE detailbulletin SET note_discipline="+moy_disc+" WHERE id_detailbull="+id_detailbull);
+                
+                
                 ArrayList<String> details=bdd.remplirChampsRequete("SELECT id_detailbull FROM detailbulletin WHERE id_bulletin="+id_bulletin);
                 int [] listeDetail=new int[details.size()];
                 listenote=new int[details.size()*3];
@@ -700,7 +715,7 @@ public class Database {
             resultat=bdd.remplirChampsRequete("SELECT id_inscription FROM inscription WHERE id_eleve="+id_eleve);
             int id_inscription=Integer.parseInt(resultat.get(0));
             resultat=bdd.remplirChampsRequete("SELECT id_bulletin, id_trimestre, moyenne, appreciation FROM bulletin WHERE id_inscription="+id_inscription);
-            
+           
             return resultat;    //retourne id_bulletin, trimestre, moyenne et appreciation
         }
         else return null;
@@ -795,6 +810,7 @@ public class Database {
      * @return ArrayList avec les notes de l'élève dedans
      * @throws SQLException 
      */
+    /*
     public ArrayList<String> afficherNote(ArrayList<String> val) throws SQLException //nom, prenom
     {
         String nom=val.get(0);
@@ -847,8 +863,16 @@ public class Database {
         }
         return notes;
     }
-    
-    
+    */
+    public ArrayList<String> afficherNotes(int id_detailbull) throws SQLException
+    {
+        ArrayList<String> tabDetBull;
+        
+        tabDetBull = bdd.remplirChampsRequete("SELECT note FROM evaluation WHERE id_detailbull="+id_detailbull);
+        
+        
+        return tabDetBull;  //notes
+    }
     
 }
 
