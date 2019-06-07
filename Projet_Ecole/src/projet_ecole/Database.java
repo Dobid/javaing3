@@ -10,6 +10,12 @@ public class Database {
         bdd = new Connexion("ecole", "root", "");
     }
 
+    /**
+     * Fonction permettant d'afficher les élèves d'une classe
+     * @param val : ArrayList de String contenant les informations (td, niveau) utiles pour la recherche d'une classe à afficher
+     * @return ArrayList contenant les infos de tous les élèves faisant partie de la classe
+     * @throws SQLException 
+     */
      public ArrayList<String> afficherClasse(ArrayList<String> val) throws SQLException //td, niveau
      {
          if(!isClasseExist(val))
@@ -34,7 +40,12 @@ public class Database {
          }
          return null;
      }
-     
+     /**
+      * méthode qui vérifie que la classe recherchée existe dans la base de données : elle servira pour blinder d'autres fonctions
+      * @param val : ArrayList des valeurs utiles d'une classe pour faire une recherche de classe dans la BDD
+      * @return true si classe n'existe pas false sinon
+      * @throws SQLException 
+      */
     public boolean isClasseExist(ArrayList<String> val) throws SQLException {
         ArrayList<String> resNiv = new ArrayList<>();
         String nomClasse = val.get(0);
@@ -52,6 +63,13 @@ public class Database {
         }
     }
 
+    /**
+     * méthode qui determine si l'élève recherché est dans la base de données : elle servira dans le blindage d'autres fonctions
+     * @param val : Arraylist des infos sur l'élève utiles pour trouver un élève dans la BDD
+     * @param table : int qui dit si on cherche une Personne dans la table élève ou professeur  : 0prof, 1 eleve.
+     * @return true si non trouvé, false sinon
+     * @throws SQLException 
+     */
     public boolean isPersExiste(ArrayList<String> val, int table) throws SQLException //0 prof, 1 eleve
     {
         ArrayList<String> resultat = new ArrayList<String>();
@@ -66,14 +84,25 @@ public class Database {
         }
         return resultat.isEmpty(); //true si champ vide, false si champ existant
     }
-
+    /**
+     * méthode qui determine si une discipline existe dans la base de données, utilisée dans le blindage pour d'autres méthodes
+     * @param nomDiscipline : String du nom de la discipline recherchée
+     * @return true si pas de discipline trouvée, false sinon
+     * @throws SQLException 
+     */
     public boolean isDisciplineExiste(String nomDiscipline) throws SQLException
     {
         ArrayList<String> tableDis;
         tableDis = bdd.remplirChampsRequete("SELECT id_discipline FROM discipline WHERE nom='"+nomDiscipline+"'");
         return tableDis.isEmpty();
     }
-
+    
+    /**
+     * méthode qui modifie un élève dans la base de données
+     * @param valeurs : ArrayList des informations de l'élève à modifier, et des nouvelles infos à remplacer dans la BDD
+     * @return true si opération réussie, false sinon
+     * @throws SQLException 
+     */
     public boolean modifierEleve(ArrayList<String> valeurs) throws SQLException { //nom, prenom, nouv_nom, nouv_pren, nouv_age
         
         boolean ret = false;
@@ -107,7 +136,13 @@ public class Database {
         return ret;
             
     }
-
+    
+    /**
+     * fonction qui ajoute un élève dans la BDD
+     * @param valeurs : ArrayList des infos du nouvel élève
+     * @return true si opération réussie, false sinon
+     * @throws SQLException 
+     */
     public boolean ajoutEleve(ArrayList<String> valeurs) throws SQLException { //nom, prenom, age, td, niveau
         int age = Integer.parseInt(valeurs.get(2), 10);
         boolean ret = false;
@@ -125,6 +160,12 @@ public class Database {
         bdd.executeUpdate("INSERT INTO niveau (nom)" + "VALUES ('" + valeurs.get(0) + "')");
     }
 
+    /**
+     * méthode qui ajoute une discipline supplémentaire dans la BDD
+     * @param valeurs : ArrayList des infos de la nouvelle discipline
+     * @return true si succès, false sinon
+     * @throws SQLException 
+     */
     public boolean ajoutDiscipline(ArrayList<String> valeurs) throws SQLException {
         String nomDis = valeurs.get(0);
         boolean ret = false;
@@ -136,6 +177,12 @@ public class Database {
         return ret;
     }
 
+    /**
+     * méthode qui ajoute une nouvelle classe dans la base de données
+     * @param valeurs : ArrayList des infos de la nouvelle classe à créer
+     * @return true si succès, false sinon
+     * @throws SQLException 
+     */
     public boolean ajoutClasse(ArrayList<String> valeurs) throws SQLException {
 
         boolean ret = false;
@@ -155,6 +202,12 @@ public class Database {
 
     }
 
+    /**
+     * méthode pour ajouter un professeur dans la BDD
+     * @param valeurs : ArrayList contenant les infos du nouveau professeur
+     * @return true si succès, false sinon
+     * @throws SQLException 
+     */
     public boolean ajoutProf(ArrayList<String> valeurs) throws SQLException { //nom, prenom, age, discipline, classe, niveau
         ArrayList<String> resNiv = new ArrayList<String>();
         ArrayList<String> resCla = new ArrayList<String>();
@@ -189,7 +242,12 @@ public class Database {
         return ret;
     }
 
-
+    /**
+     * méthode qui modifie un professeur dans la BDD
+     * @param valeurs : Arraylist des nouvelles infos du professeur
+     * @return true si succès, false sinon
+     * @throws SQLException 
+     */
     public   boolean modifierProf(  ArrayList<String> valeurs) throws SQLException // nom, prenom, discipline, classe, niveau
     {       
             boolean ret = false;
@@ -265,7 +323,13 @@ public class Database {
         System.out.println(resultat.get(0));
         bdd.executeUpdate("UPDATE bulletin SET moyenne=" + moy + " WHERE id_bulletin=" + bulletin);
     }
-
+    
+    /**
+     * méthode qui ajoute une nouvelle évaluation à un élève
+     * @param valeurs : Arraylist des valeurs neccéssaires à l'ajout d'une nouvelle évaluation
+     * @return true si succès, false sinon
+     * @throws SQLException 
+     */
     public boolean ajouterEval(ArrayList<String> valeurs) throws SQLException // nomEleve, prenomEleve, trimestre, nomEval, discipline Note, appréciation
     {   
         boolean ret = false;
@@ -353,6 +417,12 @@ public class Database {
         return ret;
     }
 
+    /**
+     * méthode qui inscrit un élève dans la base de données 
+     * @param valeurs : ArrayList contenant les infos du nouvel élève 
+     * @return return true si succès, false sinon
+     * @throws SQLException 
+     */
     public boolean inscrireEleve(ArrayList<String> valeurs) throws SQLException {
         boolean ret = false;
         String nom = valeurs.get(0);
@@ -421,7 +491,13 @@ public class Database {
         }
         return ret;
     }
-
+    
+    /**
+     * méthode qui retourne le nombre d'élèves dans une classe : utile pour afficherClasse.
+     * @param val : ArrayList contenant les infos de la classe dans laquelle compter le nombre d'élèves
+     * @return
+     * @throws SQLException 
+     */
     public int numEleve(ArrayList<String> val) throws SQLException
     {
         String nomClasse = val.get(0);
@@ -434,6 +510,12 @@ public class Database {
         return tabEleves.size();
     }
     
+    /**
+     * méthode qui modifie une évaluation 
+     * @param val : ArrayList qui contient le nom de l'évaluation à modifier
+     * @return true si succès, false sinon
+     * @throws SQLException 
+     */
     public boolean modifierEval(ArrayList<String> val) throws SQLException {
         boolean ret = false;
         int nouv_eval;
@@ -485,6 +567,12 @@ public class Database {
         return ret;
     }
 
+    /**
+     * méthode qui supprime un élève de la base de données
+     * @param valeurs : ArrayList contenant les infos de l'élève à supprimer
+     * @return true si succès, false sinon
+     * @throws SQLException 
+     */
     public boolean supEleve(ArrayList<String> valeurs) throws SQLException
     {
         String nomEleve = valeurs.get(0);
@@ -514,6 +602,12 @@ public class Database {
 
     }
 
+    /**
+     * méthode qui supprime un professeur de la base de données 
+     * @param valeurs : ArrayList contenant les infos du professeur à supprimer
+     * @return true si succès, false sinon
+     * @throws SQLException 
+     */
     public boolean supProf(ArrayList<String> valeurs) throws SQLException
     {
         String nomProf = valeurs.get(0);
@@ -540,6 +634,12 @@ public class Database {
         return ret;
     }
 
+    /**
+     * méthode qui supprime une évaluation de la BDD
+     * @param nom_eval : ArrayList contenant le nom de l'éval à supprimer
+     * @return true si succès, false sinon
+     * @throws SQLException 
+     */
     public   boolean supEval(ArrayList<String> nom_eval) throws SQLException
     {   
         boolean ret = false;
@@ -584,6 +684,12 @@ public class Database {
             
     }
     
+    /**
+     * méthode qui retourne le bulletin d'un élève
+     * @param val : infos d'un élève dont on veut le bulletin
+     * @return ArrayList si succès, null sinon
+     * @throws SQLException 
+     */
     public ArrayList<String> afficheBulletin(ArrayList<String> val) throws SQLException //nom, prenom
     {
         if(!isPersExiste(val, 1))
@@ -602,6 +708,12 @@ public class Database {
     }
     
     
+    /**
+     * méthode qui retourne le Detail bulletin d'un bulletin spécifique
+     * @param val : id_bulletin
+     * @return ArrayList d'un detailbulletin, null lorsque Arraylist vide
+     * @throws SQLException 
+     */
     public ArrayList<String> afficheDetailBulletin(ArrayList<String> val) throws SQLException //id_bulletin
     {
         int bulletin=Integer.parseInt(val.get(0));
@@ -653,6 +765,11 @@ public class Database {
     }  return null;  
     }
     
+    /**
+     * méthode qui modifie un Bulletin
+     * @param val : ArrayList d'infos du bulletin id_bulletin, trimestre, nouvelle appréciation
+     * @throws SQLException 
+     */
     public void modifierBulletin(ArrayList<String> val) throws SQLException //id_bulletin, trimestre, nouv_appr
     {   //dans la fenetre, conserver l'id_bulletin et le renvoyer au s-p
         int id=Integer.parseInt(val.get(0));
@@ -662,6 +779,11 @@ public class Database {
         
     }
     
+    /**
+     * méthode qui modifier le détail bulletin
+     * @param val : Arraylist : id du detailbulletin pour savoir lequel modifier, et la nouvelle appréciation
+     * @throws SQLException 
+     */
     public void modifierDetailBulletin(ArrayList<String> val) throws SQLException   //id_detailbull, nouvelle appreciation
     {
         int detailbull=Integer.parseInt(val.get(0));
