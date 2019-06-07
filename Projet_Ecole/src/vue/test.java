@@ -11,10 +11,12 @@ public class test
 	 public static void main(String[] args) throws ClassNotFoundException, SQLException {
             Database bdd=new Database();
             ArrayList<String> val=new ArrayList();
-            val.add("TD01");
-            val.add("ING1");
-            val.add("1");
-           System.out.print(Reporting.medianeClasse(bdd, val));
+            ArrayList<String> val2=new ArrayList();
+            
+            
+            val.add("David");
+            val.add("Plop");
+           System.out.println(bdd.afficherNote(val));
             //Reporting.moyenneClasse(bdd, val).get(1);
             //new Fenetre2();
 //	new affiche_eleve();
