@@ -74,16 +74,22 @@ public class Database {
         return tableDis.isEmpty();
     }
 
-    public void modifierEleve(ArrayList<String> valeurs) throws SQLException {
-        int id = Integer.parseInt(valeurs.get(0), 10);
+    public void modifierEleve(ArrayList<String> valeurs) throws SQLException { //nom, prenom, nouv_nom, nouv_pren, nouv_age
+        
+        String nom=valeurs.get(0);
+        String prenom=valeurs.get(1);
+        String nouv_nom=valeurs.get(2);
+        String nouv_prenom=valeurs.get(3);
+        String nouv_age=valeurs.get(4);
+        
         ArrayList<String> info = new ArrayList();
-        info.add(valeurs.get(1));
-        info.add(valeurs.get(2));
-        int age = Integer.parseInt(valeurs.get(3), 10);
+        info.add(nom);
+        info.add(prenom);
+        int age = Integer.parseInt(nouv_age);
         if (!isPersExiste(info, 1))
 
-            bdd.executeUpdate("UPDATE eleve SET nom='" + valeurs.get(1) + "', prenom='" + valeurs.get(2) + "', age=" + age
-                    + " WHERE id_eleve=" + id);
+            bdd.executeUpdate("UPDATE eleve SET nom='" + nouv_nom + "', prenom='" + nouv_prenom + "', age=" + age
+                    + " WHERE nom='"+nom+"' AND prenom='"+prenom+"'" );
     }
 
     public void modifier(String table, ArrayList<String> valeurs) throws SQLException {
@@ -601,11 +607,10 @@ public class Database {
     }  return null;  
     }
     
-    public void modifierBulletin(ArrayList<String> val) throws SQLException //id_bulletin, trimestre, nouv_appr
+    public void modifierBulletin(ArrayList<String> val) throws SQLException //id_bulletin, nouv_appr
     {   //dans la fenetre, conserver l'id_bulletin et le renvoyer au s-p
         int id=Integer.parseInt(val.get(0));
-        int trimestre=Integer.parseInt(val.get(1));
-        String nouv_appr=val.get(2);
+        String nouv_appr=val.get(1);
         bdd.executeUpdate("UPDATE bulletin SET appreciation='"+nouv_appr+"' WHERE id_bulletin="+id);
         
     }
@@ -616,6 +621,58 @@ public class Database {
         bdd.executeUpdate("UPDATE detailbulletin SET appreciation='"+val.get(1)+"' WHERE id_detailbull="+detailbull);
     }
     
+    public ArrayList<String> afficherNote(ArrayList<String> val) throws SQLException //nom, prenom
+    {
+        String nom=val.get(0);
+        String prenom=val.get(1);
+        
+        ArrayList<String> notes=new ArrayList();
+        ArrayList<String> resultat;
+        ArrayList<String> detailBull;
+        
+        int [] id_bulletin;
+        int nbr_notes;
+        ArrayList<String> eleve=bdd.remplirChampsRequete("SELECT id_eleve FROM eleve WHERE nom='"+nom+"' AND prenom='"+prenom+"'");
+        if(!eleve.isEmpty())
+        {
+            int id_eleve=Integer.parseInt(eleve.get(0));
+            
+            ArrayList<String> inscription=bdd.remplirChampsRequete("SELECT id_inscription FROM inscription WHERE id_eleve="+id_eleve);
+            int id_insc=Integer.parseInt(inscription.get(0));
+            
+            ArrayList<String> bulletin=bdd.remplirChampsRequete("SELECT id_bulletin FROM bulletin WHERE id_inscription="+id_insc);
+            if(!bulletin.isEmpty())
+            {
+                 id_bulletin=new int[bulletin.size()];
+                 System.out.println(bulletin.size());
+                 for(int i=0; i<bulletin.size(); i++)
+                 {
+                     id_bulletin[i]=Integer.parseInt(bulletin.get(i));
+                     detailBull=bdd.remplirChampsRequete("SELECT id_detailbull FROM detailbulletin WHERE id_bulletin="+id_bulletin[i]);
+                     System.out.println(detailBull.size());
+                     if(!detailBull.isEmpty())
+                     {
+                         int [] id_detail=new int[detailBull.size()];
+                         for(int j=0; j<detailBull.size(); j++)
+                         {
+                             id_detail[j]=Integer.parseInt(detailBull.get(j));
+                             resultat=bdd.remplirChampsRequete("SELECT note FROM evaluation WHERE id_detailbull="+id_detail[j]);
+                             if(!resultat.isEmpty())
+                             {
+                                 nbr_notes=resultat.size();
+                                 for(int h=0; h<resultat.size(); h++)
+                                     notes.add(resultat.get(h));
+                             }
+                                 
+                         }
+                     }
+                 }
+                
+            }
+             
+        }
+        return notes;
+    }
     
     
     

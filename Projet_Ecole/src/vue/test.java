@@ -16,12 +16,7 @@ public class test
             
             val.add("David");
             val.add("Plop");
-            val.add("1");
-            val.add("NS1");
-            val.add("Electronique");
-            val.add("10");
-            val.add("Un peu juste");
-           bdd.ajouterEval(val);
+           System.out.println(bdd.afficherNote(val));
             //Reporting.moyenneClasse(bdd, val).get(1);
             //new Fenetre2();
 //	new affiche_eleve();
