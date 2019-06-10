@@ -31,3 +31,4 @@ Projet_Ecole/build/built-jar.properties
 *.class
 *.class
 *.properties
+/Projet_Ecole/dist/
