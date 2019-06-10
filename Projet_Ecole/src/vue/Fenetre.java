@@ -1,5 +1,4 @@
 package vue;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -23,7 +22,7 @@ import java.awt.event.ActionListener;
  
 public class Fenetre extends JFrame {
   private JPanel container = new JPanel();
-  private JLabel label = new JLabel("ajout",JLabel.CENTER);
+  private JLabel label = new JLabel("Ajout",JLabel.CENTER);
   
   private JButton but_eleve= new JButton("Ajout eleve");
   private JButton but_classe= new JButton("Ajout classe");
@@ -33,13 +32,13 @@ public class Fenetre extends JFrame {
   
 
   public Fenetre(){
-    this.setTitle("fentreloliloio");
-    this.setSize(600, 600);
+    this.setTitle("Ajout");
+    this.setSize(600, 700);
  //   this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLocationRelativeTo(null);
     container.setBackground(Color.white);
     container.setLayout(null);
-
+    this.setResizable(false);
     JPanel top = new JPanel();
     top.setLayout(new GridLayout(6,1));
     
@@ -83,7 +82,7 @@ public class Fenetre extends JFrame {
 	    	 Object source = e.getSource();
 	if(source ==but_eleve)
 	{
-		  System.out.println("TEXT : Executer fenetre eleve  " );
+		 
 		  try {
 			new  ajout_eleve();
 		} catch (ClassNotFoundException e1) {
@@ -94,7 +93,7 @@ public class Fenetre extends JFrame {
 	    	
 	if(source ==but_classe)
 	{
-		  System.out.println("TEXT : Executer fenetre classe " );
+		
 		  try {
 			new ajout_classe();
 		} catch (ClassNotFoundException e1) {
@@ -104,7 +103,7 @@ public class Fenetre extends JFrame {
 	}
 	if(source ==but_prof)
 	{
-		  System.out.println("TEXT : Executer fenetre prof  " );
+		 
 		  try {
 			new ajout_prof();
 		} catch (ClassNotFoundException e1) {
@@ -115,7 +114,7 @@ public class Fenetre extends JFrame {
 	}
 	if(source ==but_disci)
 	{
-		  System.out.println("TEXT : Executer fenetre disci" );
+		 
 		try {
 			new ajout_discipline();
 		} catch (ClassNotFoundException e1) {
@@ -126,7 +125,7 @@ public class Fenetre extends JFrame {
 	
 	if(source ==but_eval)
 	{
-		  System.out.println("TEXT : Executer fenetre disci" );
+		  
 		try {
 			new ajout_evaluation();
 		} catch (ClassNotFoundException e1) {

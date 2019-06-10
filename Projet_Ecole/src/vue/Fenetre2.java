@@ -1,5 +1,4 @@
 package vue;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
@@ -29,7 +29,7 @@ public class Fenetre2 extends JFrame {
 private JPanel container = new JPanel();
 
 /// se que je veux dans top
-private JTextField jtf_ajout = new JTextField("Ajouter une donn�e");
+private JTextField jtf_ajout = new JTextField("Ajouter une donnée");
 private JButton but_ajout= new JButton("Ajout");
 
 private JTextField jtf_modif = new JTextField("modifier/supprimer");
@@ -57,9 +57,10 @@ public Fenetre2(){
 	//but_Stat.setBackground(Color.red);
 	
   this.setTitle("Animation");
-  this.setSize(900, 900);
+  this.setSize(900, 1000);
   this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   this.setLocationRelativeTo(null);
+  this.setResizable(false);
   
   container.setBackground(Color.white);
   container.setLayout(null);
@@ -71,7 +72,7 @@ public Fenetre2(){
   JPanel topi = new JPanel();
  
   
-  Font police = new Font("Arial", Font.BOLD, 25);
+  Font police = new Font("Arial", Font.BOLD, 28);
   jtf_ajout.setFont(police);
   jtf_ajout.setPreferredSize(new Dimension(150, 30));
   jtf_ajout.setForeground(Color.BLUE);
@@ -160,11 +161,23 @@ if(source ==but_modif)
 if(source ==but_rechercher)
 {
 	  System.out.println("TEXT : Executer fenetre rechercher  " );
-	new rechercher();
+	//new rechercher();
+	try {
+		new affiche_classe();
+	} catch (SQLException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
 }
 if(source ==but_Stat)
 {
 	  System.out.println("TEXT : Executer fenetre Stat " );
+	  try {
+		new stat();
+	} catch (ClassNotFoundException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
 	
 }
 
