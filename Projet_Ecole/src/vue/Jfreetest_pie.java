@@ -11,25 +11,36 @@ import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
  
 public class Jfreetest_pie extends ApplicationFrame {
-   
-   public Jfreetest_pie( String title ) {
+	static double c1;
+	static double c2;
+	static double c3;
+	static double c4;
+	
+   public Jfreetest_pie( String title, double a,double b, double c, double d ) {
       super( title ); 
-      setContentPane(createDemoPanel( ));
+      c1=a;
+      c2=b;
+      c3=c;
+      c4=d;
+      
+      setContentPane(createDemoPanel( c1,c2,c3,c4));
+      
+     
    }
    
-   private static PieDataset createDataset( ) {
+   private static PieDataset createDataset(double c1,double c2,double c3,double c4) {
+
       DefaultPieDataset dataset = new DefaultPieDataset( );
-      dataset.setValue( "IPhone 5s" , new Double( 20 ) );  
-      dataset.setValue( "SamSung Grand" , new Double( 200
-    		  ) );   
-     // dataset.setValue( "MotoG" , new Double( 40 ) );    
-      dataset.setValue( "Nokia Lumia" , new Double( 10 ) );  
+      dataset.setValue( "0-5" , new Double( c1 ) );  
+      dataset.setValue( "5-10" , new Double( c2 ) );   
+     dataset.setValue( "10-15" , new Double( c3) );    
+      dataset.setValue( "15-20" , new Double( c4) );  
       return dataset;         
    }
    
    private static JFreeChart createChart( PieDataset dataset ) {
       JFreeChart chart = ChartFactory.createPieChart(      
-         "Mobile Sales",   // chart title 
+         "Repartition des moyennes",   // chart title 
          dataset,          // data    
          true,             // include legend   
          true, 
@@ -38,15 +49,10 @@ public class Jfreetest_pie extends ApplicationFrame {
       return chart;
    }
    
-   public static JPanel createDemoPanel( ) {
-      JFreeChart chart = createChart(createDataset( ) );  
+   public static JPanel createDemoPanel( double c1,double c2,double c3, double c4) {
+      JFreeChart chart = createChart(createDataset(c1,c2,c3,c4 ) );  
       return new ChartPanel( chart ); 
    }
 
-   public static void main( String[ ] args ) {
-	   Jfreetest_pie demo = new Jfreetest_pie( "Mobile Sales" );  
-      demo.setSize( 560 , 367 );    
-      RefineryUtilities.centerFrameOnScreen( demo );    
-      demo.setVisible( true ); 
-   }
+ 
 }

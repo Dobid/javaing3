@@ -11,9 +11,9 @@ public class Database {
     }
 
     /**
-     * Fonction permettant d'afficher les élèves d'une classe
-     * @param val : ArrayList de String contenant les informations (td, niveau) utiles pour la recherche d'une classe à afficher
-     * @return ArrayList contenant les infos de tous les élèves faisant partie de la classe
+     * Fonction permettant d'afficher les �l�ves d'une classe
+     * @param val : ArrayList de String contenant les informations (td, niveau) utiles pour la recherche d'une classe � afficher
+     * @return ArrayList contenant les infos de tous les �l�ves faisant partie de la classe
      * @throws SQLException 
      */
      public ArrayList<String> afficherClasse(ArrayList<String> val) throws SQLException //td, niveau
@@ -41,7 +41,7 @@ public class Database {
          return null;
      }
      /**
-      * méthode qui vérifie que la classe recherchée existe dans la base de données : elle servira pour blinder d'autres fonctions
+      * m�thode qui v�rifie que la classe recherch�e existe dans la base de donn�es : elle servira pour blinder d'autres fonctions
       * @param val : ArrayList des valeurs utiles d'une classe pour faire une recherche de classe dans la BDD
       * @return true si classe n'existe pas false sinon
       * @throws SQLException 
@@ -64,10 +64,10 @@ public class Database {
     }
 
     /**
-     * méthode qui determine si l'élève recherché est dans la base de données : elle servira dans le blindage d'autres fonctions
-     * @param val : Arraylist des infos sur l'élève utiles pour trouver un élève dans la BDD
-     * @param table : int qui dit si on cherche une Personne dans la table élève ou professeur  : 0prof, 1 eleve.
-     * @return true si non trouvé, false sinon
+     * m�thode qui determine si l'�l�ve recherch� est dans la base de donn�es : elle servira dans le blindage d'autres fonctions
+     * @param val : Arraylist des infos sur l'�l�ve utiles pour trouver un �l�ve dans la BDD
+     * @param table : int qui dit si on cherche une Personne dans la table �l�ve ou professeur  : 0prof, 1 eleve.
+     * @return true si non trouv�, false sinon
      * @throws SQLException 
      */
     public boolean isPersExiste(ArrayList<String> val, int table) throws SQLException //0 prof, 1 eleve
@@ -85,9 +85,9 @@ public class Database {
         return resultat.isEmpty(); //true si champ vide, false si champ existant
     }
     /**
-     * méthode qui determine si une discipline existe dans la base de données, utilisée dans le blindage pour d'autres méthodes
-     * @param nomDiscipline : String du nom de la discipline recherchée
-     * @return true si pas de discipline trouvée, false sinon
+     * m�thode qui determine si une discipline existe dans la base de donn�es, utilis�e dans le blindage pour d'autres m�thodes
+     * @param nomDiscipline : String du nom de la discipline recherch�e
+     * @return true si pas de discipline trouv�e, false sinon
      * @throws SQLException 
      */
     public boolean isDisciplineExiste(String nomDiscipline) throws SQLException
@@ -98,9 +98,9 @@ public class Database {
     }
     
     /**
-     * méthode qui modifie un élève dans la base de données
-     * @param valeurs : ArrayList des informations de l'élève à modifier, et des nouvelles infos à remplacer dans la BDD
-     * @return true si opération réussie, false sinon
+     * m�thode qui modifie un �l�ve dans la base de donn�es
+     * @param valeurs : ArrayList des informations de l'�l�ve � modifier, et des nouvelles infos � remplacer dans la BDD
+     * @return true si op�ration r�ussie, false sinon
      * @throws SQLException 
      */
     public boolean modifierEleve(ArrayList<String> valeurs) throws SQLException { //nom, prenom, nouv_nom, nouv_pren, nouv_age
@@ -138,9 +138,9 @@ public class Database {
     }
     
     /**
-     * fonction qui ajoute un élève dans la BDD
-     * @param valeurs : ArrayList des infos du nouvel élève
-     * @return true si opération réussie, false sinon
+     * fonction qui ajoute un �l�ve dans la BDD
+     * @param valeurs : ArrayList des infos du nouvel �l�ve
+     * @return true si op�ration r�ussie, false sinon
      * @throws SQLException 
      */
     public boolean ajoutEleve(ArrayList<String> valeurs) throws SQLException { //nom, prenom, age, td, niveau
@@ -161,9 +161,9 @@ public class Database {
     }
 
     /**
-     * méthode qui ajoute une discipline supplémentaire dans la BDD
+     * m�thode qui ajoute une discipline suppl�mentaire dans la BDD
      * @param valeurs : ArrayList des infos de la nouvelle discipline
-     * @return true si succès, false sinon
+     * @return true si succ�s, false sinon
      * @throws SQLException 
      */
     public boolean ajoutDiscipline(ArrayList<String> valeurs) throws SQLException {
@@ -178,9 +178,9 @@ public class Database {
     }
 
     /**
-     * méthode qui ajoute une nouvelle classe dans la base de données
-     * @param valeurs : ArrayList des infos de la nouvelle classe à créer
-     * @return true si succès, false sinon
+     * m�thode qui ajoute une nouvelle classe dans la base de donn�es
+     * @param valeurs : ArrayList des infos de la nouvelle classe � cr�er
+     * @return true si succ�s, false sinon
      * @throws SQLException 
      */
     public boolean ajoutClasse(ArrayList<String> valeurs) throws SQLException {
@@ -195,7 +195,7 @@ public class Database {
                     + "', 1, '" + niveau + "', 2009)");
             ret = true;
         } else {
-            System.out.println("Classe déjà existante");
+            System.out.println("Classe d�j� existante");
             ret = false;
         }
         return ret;
@@ -203,9 +203,9 @@ public class Database {
     }
 
     /**
-     * méthode pour ajouter un professeur dans la BDD
+     * m�thode pour ajouter un professeur dans la BDD
      * @param valeurs : ArrayList contenant les infos du nouveau professeur
-     * @return true si succès, false sinon
+     * @return true si succ�s, false sinon
      * @throws SQLException 
      */
     public boolean ajoutProf(ArrayList<String> valeurs) throws SQLException { //nom, prenom, age, discipline, classe, niveau
@@ -217,6 +217,7 @@ public class Database {
         resNiv = bdd.remplirChampsRequete("SELECT id_niveau FROM niveau WHERE nom='" + valeurs.get(5) + "'");
         resDis = bdd.remplirChampsRequete("SELECT id_discipline FROM discipline WHERE nom='" + valeurs.get(3) + "'");
         if (!resNiv.isEmpty()) {
+        	
             int niveau = Integer.parseInt(resNiv.get(0));
             resCla = bdd.remplirChampsRequete(
                     "SELECT id_classe FROM classe WHERE nom='" + valeurs.get(4) + "'AND id_niveau=" + niveau);
@@ -243,9 +244,9 @@ public class Database {
     }
 
     /**
-     * méthode qui modifie un professeur dans la BDD
+     * m�thode qui modifie un professeur dans la BDD
      * @param valeurs : Arraylist des nouvelles infos du professeur
-     * @return true si succès, false sinon
+     * @return true si succ�s, false sinon
      * @throws SQLException 
      */
     public   boolean modifierProf(  ArrayList<String> valeurs) throws SQLException // nom, prenom, discipline, classe, niveau
@@ -325,12 +326,12 @@ public class Database {
     }
     
     /**
-     * méthode qui ajoute une nouvelle évaluation à un élève
-     * @param valeurs : Arraylist des valeurs neccéssaires à l'ajout d'une nouvelle évaluation
-     * @return true si succès, false sinon
+     * m�thode qui ajoute une nouvelle �valuation � un �l�ve
+     * @param valeurs : Arraylist des valeurs necc�ssaires � l'ajout d'une nouvelle �valuation
+     * @return true si succ�s, false sinon
      * @throws SQLException 
      */
-    public boolean ajouterEval(ArrayList<String> valeurs) throws SQLException // nomEleve, prenomEleve, trimestre, nomEval, discipline Note, appréciation
+    public boolean ajouterEval(ArrayList<String> valeurs) throws SQLException // nomEleve, prenomEleve, trimestre, nomEval, discipline Note, appr�ciation
     {   
         boolean ret = false;
         String nomEleve = valeurs.get(0);
@@ -379,13 +380,28 @@ public class Database {
 
                 if(tabEval.isEmpty())
                 {
-                    bdd.executeUpdate("INSERT INTO evaluation (id_detailbull, nom, note, appreciation)"+"VALUES('"+id_detailbull+"','"+nomEval+"',"+note+",'"+appreciation+"')");
+                    bdd.executeUpdate("INSERT INTO evaluation (id_detailbull, nom, note, appreciation)"+"VALUES('"+id_detailbull+"', '"+nomEval+"', "+note+", '"+appreciation+"')");
                     ret = true;
                 }
                 else
                 {
-                    System.out.println("Note portant ce nom déjà existante");
+                    System.out.println("Note portant ce nom d�j� existante");
                 }
+                
+                int [] notes_disc;
+                double moy_disc=0;
+                int nb_note_disc=0;
+                ArrayList<String> note_matiere=bdd.remplirChampsRequete("SELECT note FROM evaluation WHERE id_detailbull="+id_detailbull);
+                notes_disc=new int[note_matiere.size()];
+                for(int i=0; i<note_matiere.size(); i++)
+                {
+                    notes_disc[i]=Integer.parseInt(note_matiere.get(i));
+                    moy_disc=moy_disc+notes_disc[i];
+                    nb_note_disc++;
+                }
+                moy_disc=moy_disc/nb_note_disc;
+                bdd.executeUpdate("UPDATE detailbulletin SET note_discipline="+moy_disc+" WHERE id_detailbull="+id_detailbull);
+                
                 
                 ArrayList<String> details=bdd.remplirChampsRequete("SELECT id_detailbull FROM detailbulletin WHERE id_bulletin="+id_bulletin);
                 int [] listeDetail=new int[details.size()];
@@ -403,9 +419,12 @@ public class Database {
                 }
                 double moy=0;
                 for(int i=0; i<listenote.length; i++)
+                {
                     moy=moy+listenote[i];
+                    
+                         
+                }
                 moy=moy/nb_note;
-                System.out.print(moy);
                 bdd.executeUpdate("UPDATE bulletin SET moyenne="+moy+ " WHERE id_bulletin="+id_bulletin);
                 
             }
@@ -418,9 +437,9 @@ public class Database {
     }
 
     /**
-     * méthode qui inscrit un élève dans la base de données 
-     * @param valeurs : ArrayList contenant les infos du nouvel élève 
-     * @return return true si succès, false sinon
+     * m�thode qui inscrit un �l�ve dans la base de donn�es 
+     * @param valeurs : ArrayList contenant les infos du nouvel �l�ve 
+     * @return return true si succ�s, false sinon
      * @throws SQLException 
      */
     public boolean inscrireEleve(ArrayList<String> valeurs) throws SQLException {
@@ -447,12 +466,17 @@ public class Database {
             String sqlQuery = "SELECT id_eleve FROM eleve WHERE nom='" + nom + "'AND prenom='" + prenom + "'";
             result = bdd.remplirChampsRequete(sqlQuery);
             int id_eleve = Integer.parseInt(result.get(0));
-            System.out.println("id_eleve"+id_eleve);
+            System.out.println("id_eleve "+id_eleve);
 
-            sqlQuery = "SELECT id_classe FROM classe WHERE nom='" + nomClasse + "'";
+            sqlQuery = "SELECT id_niveau FROM niveau WHERE nom='" + niveauStr + "'";
+            result = bdd.remplirChampsRequete(sqlQuery);
+            int id_niveau = Integer.parseInt(result.get(0));
+            System.out.println("id_niveau "+id_niveau);
+            
+            sqlQuery = "SELECT id_classe FROM classe WHERE nom='" + nomClasse + "' AND id_niveau="+id_niveau;
             result = bdd.remplirChampsRequete(sqlQuery);
             int id_classe = Integer.parseInt(result.get(0));
-            System.out.println("id_classe"+id_classe);
+            System.out.println("id_classe "+id_classe);
             
             sqlQuery = "INSERT INTO inscription (id_classe, id_eleve)" + "VALUES ('" + id_classe + "', '" + id_eleve + "')";
             bdd.executeUpdate(sqlQuery);
@@ -476,13 +500,14 @@ public class Database {
             int nb_bull_par_eleve = tabBull.size();
             ArrayList<String> tabEns = bdd.remplirChampsRequete("SELECT id_ens FROM enseignement WHERE id_classe ="+id_classe);
             int nb_ens_par_classe = tabEns.size();
-            System.out.println("Nombre de bulletins par élève :"+nb_bull_par_eleve);
+            System.out.println("Nombre de bulletins par �l�ve :"+nb_bull_par_eleve);
             System.out.println("Nombre d'enseignements pour une classe:" +nb_ens_par_classe);
+            String vide="vide";
             for(int i=0; i<nb_bull_par_eleve; i++)
             {
                 for(int j=0; j<nb_ens_par_classe; j++)
                 {
-                    bdd.executeUpdate("INSERT INTO detailbulletin (id_bulletin, id_ens)" + "VALUES('"+tabBull.get(i)+"', '"+tabEns.get(j)+"')");
+                    bdd.executeUpdate("INSERT INTO detailbulletin (id_bulletin, id_ens, appreciation, note_discipline)" + "VALUES('"+tabBull.get(i)+"', '"+tabEns.get(j)+"','"+vide+"' ,0)");
                 }  
             }
             ret = true;
@@ -493,8 +518,8 @@ public class Database {
     }
     
     /**
-     * méthode qui retourne le nombre d'élèves dans une classe : utile pour afficherClasse.
-     * @param val : ArrayList contenant les infos de la classe dans laquelle compter le nombre d'élèves
+     * m�thode qui retourne le nombre d'�l�ves dans une classe : utile pour afficherClasse.
+     * @param val : ArrayList contenant les infos de la classe dans laquelle compter le nombre d'�l�ves
      * @return
      * @throws SQLException 
      */
@@ -503,17 +528,26 @@ public class Database {
         String nomClasse = val.get(0);
         String niveau = val.get(1);
         ArrayList<String> tabNiv = bdd.remplirChampsRequete("SELECT id_niveau FROM niveau WHERE nom='"+niveau+"'");
-        int id_niveau = Integer.parseInt(tabNiv.get(0));
-        ArrayList<String> tabClasse = bdd.remplirChampsRequete("SELECT id_classe FROM classe WHERE nom='"+nomClasse+"' AND id_niveau="+id_niveau);
-        int id_classe = Integer.parseInt(tabClasse.get(0));
-        ArrayList<String>tabEleves = bdd.remplirChampsRequete("SELECT id_eleve FROM inscription WHERE id_classe="+id_classe);
-        return tabEleves.size();
+        if(!tabNiv.isEmpty())
+        {
+        	int id_niveau = Integer.parseInt(tabNiv.get(0));
+            ArrayList<String> tabClasse = bdd.remplirChampsRequete("SELECT id_classe FROM classe WHERE nom='"+nomClasse+"' AND id_niveau="+id_niveau);
+            if(!tabClasse.isEmpty())
+            {
+            	 int id_classe = Integer.parseInt(tabClasse.get(0));
+                 ArrayList<String>tabEleves = bdd.remplirChampsRequete("SELECT id_eleve FROM inscription WHERE id_classe="+id_classe);
+                 return tabEleves.size();
+            }
+           
+        }
+        return 0;
+        
     }
     
     /**
-     * méthode qui modifie une évaluation 
-     * @param val : ArrayList qui contient le nom de l'évaluation à modifier
-     * @return true si succès, false sinon
+     * m�thode qui modifie une �valuation 
+     * @param val : ArrayList qui contient le nom de l'�valuation � modifier
+     * @return true si succ�s, false sinon
      * @throws SQLException 
      */
     public boolean modifierEval(ArrayList<String> val) throws SQLException {
@@ -568,9 +602,9 @@ public class Database {
     }
 
     /**
-     * méthode qui supprime un élève de la base de données
-     * @param valeurs : ArrayList contenant les infos de l'élève à supprimer
-     * @return true si succès, false sinon
+     * m�thode qui supprime un �l�ve de la base de donn�es
+     * @param valeurs : ArrayList contenant les infos de l'�l�ve � supprimer
+     * @return true si succ�s, false sinon
      * @throws SQLException 
      */
     public boolean supEleve(ArrayList<String> valeurs) throws SQLException
@@ -603,9 +637,9 @@ public class Database {
     }
 
     /**
-     * méthode qui supprime un professeur de la base de données 
-     * @param valeurs : ArrayList contenant les infos du professeur à supprimer
-     * @return true si succès, false sinon
+     * m�thode qui supprime un professeur de la base de donn�es 
+     * @param valeurs : ArrayList contenant les infos du professeur � supprimer
+     * @return true si succ�s, false sinon
      * @throws SQLException 
      */
     public boolean supProf(ArrayList<String> valeurs) throws SQLException
@@ -635,9 +669,9 @@ public class Database {
     }
 
     /**
-     * méthode qui supprime une évaluation de la BDD
-     * @param nom_eval : ArrayList contenant le nom de l'éval à supprimer
-     * @return true si succès, false sinon
+     * m�thode qui supprime une �valuation de la BDD
+     * @param nom_eval : ArrayList contenant le nom de l'�val � supprimer
+     * @return true si succ�s, false sinon
      * @throws SQLException 
      */
     public   boolean supEval(ArrayList<String> nom_eval) throws SQLException
@@ -685,9 +719,9 @@ public class Database {
     }
     
     /**
-     * méthode qui retourne le bulletin d'un élève
-     * @param val : infos d'un élève dont on veut le bulletin
-     * @return ArrayList si succès, null sinon
+     * m�thode qui retourne le bulletin d'un �l�ve
+     * @param val : infos d'un �l�ve dont on veut le bulletin
+     * @return ArrayList si succ�s, null sinon
      * @throws SQLException 
      */
     public ArrayList<String> afficheBulletin(ArrayList<String> val) throws SQLException //nom, prenom
@@ -700,7 +734,7 @@ public class Database {
             resultat=bdd.remplirChampsRequete("SELECT id_inscription FROM inscription WHERE id_eleve="+id_eleve);
             int id_inscription=Integer.parseInt(resultat.get(0));
             resultat=bdd.remplirChampsRequete("SELECT id_bulletin, id_trimestre, moyenne, appreciation FROM bulletin WHERE id_inscription="+id_inscription);
-            
+           
             return resultat;    //retourne id_bulletin, trimestre, moyenne et appreciation
         }
         else return null;
@@ -709,7 +743,7 @@ public class Database {
     
     
     /**
-     * méthode qui retourne le Detail bulletin d'un bulletin spécifique
+     * m�thode qui retourne le Detail bulletin d'un bulletin sp�cifique
      * @param val : id_bulletin
      * @return ArrayList d'un detailbulletin, null lorsque Arraylist vide
      * @throws SQLException 
@@ -720,15 +754,22 @@ public class Database {
         String[] detailbull;
         String[] nom_disc;
         String [] appreciation;
+        String [] note;
         int [] id_detailbull;
         int[] id_ens;
         int [] id_disc;
+        ArrayList<String> envoi = new ArrayList();
+        ArrayList<String> listeNote;
+        ArrayList<String> listeIdDisc;
+        ArrayList<String> listeNomDisc;
         ArrayList<String> resultat=bdd.remplirChampsRequete("SELECT id_detailbull FROM detailbulletin WHERE id_bulletin="+bulletin);
         if(!resultat.isEmpty())
         {
             detailbull=new String[resultat.size()];
+            System.out.println(detailbull.length);
             id_detailbull =new int [resultat.size()];
             appreciation=new String[id_detailbull.length];
+            note=new String[id_detailbull.length];
             for(int i=0; i<resultat.size(); i++)
             {
                 detailbull[i]=resultat.get(i);
@@ -737,37 +778,48 @@ public class Database {
          resultat=bdd.remplirChampsRequete("SELECT id_ens FROM detailbulletin WHERE id_bulletin="+bulletin);
         if(!resultat.isEmpty())
         {
+            nom_disc=new String[resultat.size()];
             id_ens=new int[resultat.size()];
             id_disc=new int[resultat.size()];
             for (int i=0; i<resultat.size(); i++)
             {
                 id_ens[i]=Integer.parseInt(resultat.get(i));
-                resultat=bdd.remplirChampsRequete("SELECT id_discipline FROM enseignement WHERE id_ens="+id_ens[i]);
-                id_disc[i]=Integer.parseInt(resultat.get(0));
-                resultat=bdd.remplirChampsRequete("SELECT nom FROM discipline WHERE id_discipline="+id_disc[i]);
-                
+                listeIdDisc=bdd.remplirChampsRequete("SELECT id_discipline FROM enseignement WHERE id_ens="+id_ens[i]);
+                id_disc[i]=Integer.parseInt(listeIdDisc.get(0));
+                listeNomDisc=bdd.remplirChampsRequete("SELECT nom FROM discipline WHERE id_discipline="+id_disc[i]);
+                    nom_disc[i]=listeNomDisc.get(0);
             }
-            nom_disc=new String[resultat.size()];
-            for(int i=0; i<resultat.size(); i++)
-                nom_disc[i]=resultat.get(i);
+            
+            
+        
+                
             for(int i=0; i<id_detailbull.length; i++)
             {
                 resultat=bdd.remplirChampsRequete("SELECT appreciation FROM detailbulletin WHERE id_detailbull="+id_detailbull[i]);
                 appreciation[i]=resultat.get(0);
+                listeNote=bdd.remplirChampsRequete("SELECT note_discipline FROM detailbulletin WHERE id_detailbull="+id_detailbull[i]);
+                note[i]=listeNote.get(0);
             }
+            
+           
+            
             for(int i=0; i<id_detailbull.length; i++)
             {
-                resultat.set(i,detailbull[i]+", "+nom_disc[i]+", "+appreciation[i] );
+                
+                envoi.add(detailbull[i]+", "+nom_disc[i]+", "+appreciation[i]+", "+note[i] );
+                
+                
             }
-            return resultat;
+            
+            return envoi;
         }
         
     }  return null;  
     }
     
     /**
-     * méthode qui modifie un Bulletin
-     * @param val : ArrayList d'infos du bulletin id_bulletin, trimestre, nouvelle appréciation
+     * m�thode qui modifie un Bulletin
+     * @param val : ArrayList d'infos du bulletin id_bulletin, trimestre, nouvelle appr�ciation
      * @throws SQLException 
      */
     public void modifierBulletin(ArrayList<String> val) throws SQLException //id_bulletin, trimestre, nouv_appr
@@ -779,8 +831,8 @@ public class Database {
     }
     
     /**
-     * méthode qui modifier le détail bulletin
-     * @param val : Arraylist : id du detailbulletin pour savoir lequel modifier, et la nouvelle appréciation
+     * m�thode qui modifier le d�tail bulletin
+     * @param val : Arraylist : id du detailbulletin pour savoir lequel modifier, et la nouvelle appr�ciation
      * @throws SQLException 
      */
     public void modifierDetailBulletin(ArrayList<String> val) throws SQLException   //id_detailbull, nouvelle appreciation
@@ -790,65 +842,22 @@ public class Database {
     }
     
     /**
-     * méthode pour afficher les notes d'un élève
-     * @param val : ArrayList contenant les infos de l'élève dont on veut les notes
-     * @return ArrayList avec les notes de l'élève dedans
+     * m�thode pour afficher les notes d'un �l�ve
+     * @param val : ArrayList contenant les infos de l'�l�ve dont on veut les notes
+     * @return ArrayList avec les notes de l'�l�ve dedans
      * @throws SQLException 
      */
-    public ArrayList<String> afficherNote(ArrayList<String> val) throws SQLException //nom, prenom
+
+    public ArrayList<String> afficherNotes(ArrayList<String> val) throws SQLException
     {
-        String nom=val.get(0);
-        String prenom=val.get(1);
+        ArrayList<String> tabDetBull;
         
-        ArrayList<String> notes=new ArrayList();
-        ArrayList<String> resultat;
-        ArrayList<String> detailBull;
+        int id_detailbull=Integer.parseInt(val.get(0));
+        tabDetBull = bdd.remplirChampsRequete("SELECT note, nom, appreciation FROM evaluation WHERE id_detailbull="+id_detailbull);
         
-        int [] id_bulletin;
-        int nbr_notes;
-        ArrayList<String> eleve=bdd.remplirChampsRequete("SELECT id_eleve FROM eleve WHERE nom='"+nom+"' AND prenom='"+prenom+"'");
-        if(!eleve.isEmpty())
-        {
-            int id_eleve=Integer.parseInt(eleve.get(0));
-            
-            ArrayList<String> inscription=bdd.remplirChampsRequete("SELECT id_inscription FROM inscription WHERE id_eleve="+id_eleve);
-            int id_insc=Integer.parseInt(inscription.get(0));
-            
-            ArrayList<String> bulletin=bdd.remplirChampsRequete("SELECT id_bulletin FROM bulletin WHERE id_inscription="+id_insc);
-            if(!bulletin.isEmpty())
-            {
-                 id_bulletin=new int[bulletin.size()];
-                 System.out.println(bulletin.size());
-                 for(int i=0; i<bulletin.size(); i++)
-                 {
-                     id_bulletin[i]=Integer.parseInt(bulletin.get(i));
-                     detailBull=bdd.remplirChampsRequete("SELECT id_detailbull FROM detailbulletin WHERE id_bulletin="+id_bulletin[i]);
-                     System.out.println(detailBull.size());
-                     if(!detailBull.isEmpty())
-                     {
-                         int [] id_detail=new int[detailBull.size()];
-                         for(int j=0; j<detailBull.size(); j++)
-                         {
-                             id_detail[j]=Integer.parseInt(detailBull.get(j));
-                             resultat=bdd.remplirChampsRequete("SELECT note FROM evaluation WHERE id_detailbull="+id_detail[j]);
-                             if(!resultat.isEmpty())
-                             {
-                                 nbr_notes=resultat.size();
-                                 for(int h=0; h<resultat.size(); h++)
-                                     notes.add(resultat.get(h));
-                             }
-                                 
-                         }
-                     }
-                 }
-                
-            }
-             
-        }
-        return notes;
+        
+        return tabDetBull;  //notes
     }
-    
-    
     
 }
 

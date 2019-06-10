@@ -1,5 +1,4 @@
 package vue;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -28,7 +27,7 @@ public class ajout_prof extends JFrame{
 	Database bdd;
 	
 	 private JPanel container = new JPanel();
-	  private JLabel label = new JLabel("ajout",JLabel.CENTER);
+	  private JLabel label = new JLabel("Ajout",JLabel.CENTER);
 	  private JTextField nom= new JTextField("nom");
 	  private JTextField prenom= new JTextField("prenom");
 	  private JTextField age= new JTextField("age");
@@ -49,8 +48,9 @@ public class ajout_prof extends JFrame{
 		{
 			System.out.println(e.getMessage());
 		}
-	    this.setTitle("fentreloliloio");
+	    this.setTitle("Ajout Professeur");
 	    this.setSize(600, 600);
+	    this.setResizable(false);
 	 //   this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    this.setLocationRelativeTo(null);
 	    container.setBackground(Color.white);
@@ -116,7 +116,17 @@ public class ajout_prof extends JFrame{
 			  val.add(classe.getText());
 			  val.add(niveau.getText());
 			  try {
-				bdd.ajoutProf(val);
+				if(bdd.ajoutProf(val)==false)
+					new PopUp("Impossible d'ajouter ce professeur");
+					
+				val.clear();
+				nom.setText("nom");
+				prenom.setText("prenom");
+				age.setText("age");
+				enseigne.setText("enseignement");
+				classe.setText("classe");
+				niveau.setText("niveau");
+				
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
