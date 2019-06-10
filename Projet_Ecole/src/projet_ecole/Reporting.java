@@ -13,7 +13,7 @@ import java.sql.SQLException;
  */
 public abstract class Reporting {
     
-    public static ArrayList moyenneClasse(Database data, ArrayList<String> val) throws SQLException //nom_td, nom_niveau, trimestre
+    public static double[] moyenneClasse(Database data, ArrayList<String> val) throws SQLException //nom_td, nom_niveau, trimestre
     {
         String niveau=val.get(1);
         String td=val.get(0);
@@ -54,22 +54,24 @@ public abstract class Reporting {
                         id_insc[i]=Integer.parseInt(resultat.get(i));
                        
                         
-                        ArrayList<String> inscrip=data.bdd.remplirChampsRequete("SELECT moyenne FROM bulletin WHERE id_inscription ="+id_insc[i]+" AND id_trimestre+"+trimestre);
-                        moy=Integer.parseInt(inscrip.get(0));
-                        if(moy<5) 
-                            moins_cinq++;
-                        else if(moy<10)
-                            moins_dix++;
-                        else if(moy<15)
-                            moins_quinze++;
-                        else 
-                            plus_quinze++;
+                        ArrayList<String> inscrip=data.bdd.remplirChampsRequete("SELECT moyenne FROM bulletin WHERE id_inscription ="+id_insc[i]+" AND id_trimestre="+trimestre);
+                        if(!inscrip.isEmpty())
+                        {	moy=Integer.parseInt(inscrip.get(0));
+                        	if(moy<5) 
+                        		moins_cinq++;
+                        	else if(moy<10)
+                        		moins_dix++;
+                        	else if(moy<15)
+                        		moins_quinze++;
+                        	else 
+                        		plus_quinze++;
+                        }
                     }
-                  ArrayList res=new ArrayList();
-                  res.add(moins_cinq);
-                  res.add(moins_dix);
-                  res.add(moins_quinze);
-                  res.add(plus_quinze);
+                  double [] res=new double[4];
+                  res[0]=moins_cinq;
+                  res[1]=moins_dix;
+                  res[2]=moins_quinze;
+                  res[3]=plus_quinze;
                     return res;
                 }
                 
@@ -79,7 +81,7 @@ public abstract class Reporting {
         return null;
     }
     
-    public static ArrayList moyenneDiscipline(Database data, ArrayList<String> val) throws SQLException //nom_discipline
+    public static double[] moyenneDiscipline(Database data, ArrayList<String> val) throws SQLException //nom_discipline
     {
         int id_disc;
         int [] id_ens;
@@ -92,7 +94,7 @@ public abstract class Reporting {
         
         ArrayList<String> resultat=data.bdd.remplirChampsRequete("SELECT id_discipline FROM discipline WHERE nom='"+val.get(0)+"'");
         ArrayList<String> bulletin, note;
-        ArrayList res=new ArrayList();
+        double[] res=new double[4];
         if(!resultat.isEmpty())
         {
             id_disc=Integer.parseInt(resultat.get(0));
@@ -125,10 +127,10 @@ public abstract class Reporting {
                             
                     }
                 }
-                res.add(moins_cinq);
-                res.add(moins_dix);
-                res.add(moins_quinze);
-                res.add(plus_quinze);
+                res[0]=moins_cinq;
+                res[1]=moins_dix;
+                res[2]=moins_quinze;
+                res[3]=plus_quinze;
                 return res;
             }
             

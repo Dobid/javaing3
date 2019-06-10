@@ -121,19 +121,12 @@ public class modifier_supprimer_discipline extends JFrame {
 	if(source ==but_bulletin)
 	{
 		  System.out.println("TEXT : Executer bulletin  " );
-		new modifier_supprimer_eleve_bulletin();
+		//new modifier_supprimer_eleve_bulletin();
 	
 	}
 	if(source ==but_evaluation)
 	{
 		  System.out.println("TEXT : Executer bulletin  " );
-	
-	try {
-		new modifier_supprimer_eleve_evaluation();
-	} catch (ClassNotFoundException e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	}
 	}
 	
 	

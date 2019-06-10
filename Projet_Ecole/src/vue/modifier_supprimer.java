@@ -1,9 +1,10 @@
 package vue;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -21,41 +22,44 @@ import java.awt.event.ActionListener;
  
 public class modifier_supprimer extends JFrame {
   private JPanel container = new JPanel();
-  private JLabel label = new JLabel("modifier supprimer");
+  private JLabel label = new JLabel("Modifier / Supprimer",JLabel.CENTER);
   
   private JButton but_eleve= new JButton(" eleve");
-  private JButton but_classe= new JButton(" classe");
+
   private JButton but_prof= new JButton(" prof");
-  private JButton but_disci= new JButton("discipline");
+
   
 
   public modifier_supprimer(){
-    this.setTitle("fentreloliloio");
+    this.setTitle("Modification");
     this.setSize(600, 600);
  //   this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLocationRelativeTo(null);
+    this.setResizable(false);
     container.setBackground(Color.white);
     container.setLayout(null);
 
     JPanel top = new JPanel();
-    top.setLayout(new FlowLayout());
+    top.setLayout(new GridLayout(3,1));
     
     
     /// boutton de top
     but_eleve.addActionListener(new BoutonListener());
-    but_classe.addActionListener(new BoutonListener());
+
     but_prof.addActionListener(new BoutonListener());
-    but_disci.addActionListener(new BoutonListener());
+
      
-    
+    Font police = new Font("Arial", Font.BOLD, 25);
+    label.setFont(police);
+    label.setForeground(Color.BLUE);
+
     
     top.add(label);
     top.add(but_eleve);
     top.add(but_prof);
-    top.add(but_classe);
-    top.add(but_disci);
+   
   
-   top.setBounds(20, 78, 100, 200);
+   top.setBounds(0, 0, 500, 500);
     container.add(top);
     
     
@@ -74,26 +78,23 @@ public class modifier_supprimer extends JFrame {
 	    	 Object source = e.getSource();
 	if(source ==but_eleve)
 	{
-		  System.out.println("TEXT : Executer eleve  " );
-	new modifier_supprimer_eleve();
+	
+	try {
+		new modifier_supprimer_eleve();
+	} catch (ClassNotFoundException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
 	}
 	    	
-	if(source ==but_classe)
-	{
-		  System.out.println("TEXT : Execute classe " );
-		new modifier_supprimer_classe();
-	}
+	
 	if(source ==but_prof)
 	{
-		  System.out.println("TEXT : Executer prof  " );
+		
 		new modifier_supprimer_prof();
 		
 	}
-	if(source ==but_disci)
-	{
-		  System.out.println("TEXT : Executer  disci" );
-			new modifier_supprimer_discipline();
-	}
+	
 
 	    }
 	  }
