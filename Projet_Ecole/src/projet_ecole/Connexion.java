@@ -33,16 +33,16 @@ public class Connexion {
      */
     public ArrayList<String> tables = new ArrayList<>();
     /**
-     * ArrayList public pour les requÃªtes de sÃ©lection
+     * ArrayList public pour les requêtes de sélection
      */
     public ArrayList<String> requetes = new ArrayList<>();
     /**
-     * ArrayList public pour les requÃªtes de MAJ
+     * ArrayList public pour les requêtes de MAJ
      */
     public ArrayList<String> requetesMaj = new ArrayList<>();
 
     /**
-     * Constructeur avec 3 paramÃ¨tres : nom, login et password de la BDD locale
+     * Constructeur avec 3 paramètres : nom, login et password de la BDD locale
      *
      * @param nameDatabase
      * @param loginDatabase
@@ -57,19 +57,19 @@ public class Connexion {
         // url de connexion "jdbc:mysql://localhost:3305/usernameECE"
         String urlDatabase = "jdbc:mysql://localhost/" + nameDatabase;
       // String urlDatabase = "http://localhost/" + nameDatabase;
-        //crÃ©ation d'une connexion JDBC Ã  la base 
+        //création d'une connexion JDBC à la base 
         conn = DriverManager.getConnection(urlDatabase, loginDatabase, passwordDatabase);
 
-        // crÃ©ation d'un ordre SQL (statement)
+        // création d'un ordre SQL (statement)
         stmt = conn.createStatement();
         
-        //utile pour les clés étrangères
+        //utile pour les cl�s �trang�res
        
     }
 
     /**
-     * Constructeur avec 4 paramÃ¨tres : username et password ECE, login et
-     * password de la BDD Ã  distance sur le serveur de l'ECE
+     * Constructeur avec 4 paramètres : username et password ECE, login et
+     * password de la BDD à distance sur le serveur de l'ECE
      * @param usernameECE
      * @param passwordECE
      * @param loginDatabase
@@ -90,17 +90,17 @@ public class Connexion {
             // url de connexion "jdbc:mysql://localhost:3305/usernameECE"
             String urlDatabase = "jdbc:mysql://localhost:3305/" + usernameECE;
 
-            //crÃ©ation d'une connexion JDBC Ã  la base
+            //création d'une connexion JDBC à la base
             conn = DriverManager.getConnection(urlDatabase, loginDatabase, passwordDatabase);
 
-            // crÃ©ation d'un ordre SQL (statement)
+            // création d'un ordre SQL (statement)
             stmt = conn.createStatement();
 
         }
     }
-    */
+
     /**
-     * MÃ©thode qui ajoute la table en parametre dans son ArrayList
+     * Méthode qui ajoute la table en parametre dans son ArrayList
      *
      * @param table
      */
@@ -109,7 +109,7 @@ public class Connexion {
     }
 
     /**
-     * MÃ©thode qui ajoute la requete de selection en parametre dans son
+     * Méthode qui ajoute la requete de selection en parametre dans son
      * ArrayList
      *
      * @param requete
@@ -119,7 +119,7 @@ public class Connexion {
     }
 
     /**
-     * MÃ©thode qui ajoute la requete de MAJ en parametre dans son
+     * Méthode qui ajoute la requete de MAJ en parametre dans son
      * ArrayList
      *
      * @param requete
@@ -129,17 +129,17 @@ public class Connexion {
     }
 
     /**
-     * MÃ©thode qui retourne l'ArrayList des champs de la table en parametre
+     * Méthode qui retourne l'ArrayList des champs de la table en parametre
      *
      * @param table
      * @return
      * @throws java.sql.SQLException
      */
     public ArrayList remplirChampsTable(String table) throws SQLException {
-        // rÃ©cupÃ©ration de l'ordre de la requete
+        // récupération de l'ordre de la requete
         rset = stmt.executeQuery("select * from " + table);
 
-        // rÃ©cupÃ©ration du rÃ©sultat de l'ordre
+        // récupération du résultat de l'ordre
         rsetMeta = rset.getMetaData();
 
         // calcul du nombre de colonnes du resultat
@@ -154,7 +154,7 @@ public class Connexion {
             champs = champs + " " + rsetMeta.getColumnLabel(i + 1);
         }
 
-        // ajouter un "\n" Ã  la ligne des champs
+        // ajouter un "\n" à la ligne des champs
        // champs = champs + "\n";
 
         // ajouter les champs de la ligne dans l'ArrayList
@@ -171,10 +171,10 @@ public class Connexion {
      * @throws java.sql.SQLException
      */
     public ArrayList remplirChampsRequete(String requete) throws SQLException {
-        // rÃ©cupÃ©ration de l'ordre de la requete
+        // récupération de l'ordre de la requete
         rset = stmt.executeQuery(requete);
 
-        // rÃ©cupÃ©ration du rÃ©sultat de l'ordre
+        // récupération du résultat de l'ordre
         rsetMeta = rset.getMetaData();
 
         // calcul du nombre de colonnes du resultat
@@ -194,7 +194,7 @@ public class Connexion {
                 champs = champs + "," + rset.getString(i + 1);
             }
 
-            // ajouter un "\n" Ã  la ligne des champs
+            // ajouter un "\n" à la ligne des champs
          //   champs = champs + "\n";
 
             // ajouter les champs de la ligne dans l'ArrayList
@@ -206,7 +206,7 @@ public class Connexion {
     }
 
     /**
-     * MÃ©thode qui execute une requete de MAJ en parametre
+     * Méthode qui execute une requete de MAJ en parametre
      * @param requeteMaj
      * @throws java.sql.SQLException
      */

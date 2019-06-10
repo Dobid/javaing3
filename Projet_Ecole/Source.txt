@@ -1,0 +1,3 @@
+https://codes-sources.commentcamarche.net/source/51950-creer-des-graphiques-utilisation-de-jfreechart
+https://www.tutorialspoint.com/jfreechart/jfreechart_pie_chart.htm
+https://www.developpez.net/forums/d1545952/java/interfaces-graphiques-java/awt-swing/composants/l-apparition-d-nouveau-jtextfield-lors-clique-bouton/
